@@ -191,13 +191,11 @@ export default function SellerRegistrationForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {currentPage === 1 ? (
           <>
-            {/* Step Subtitle */}
             <div className="mb-6 text-center">
               <h3 className="text-xl font-semibold text-blue-700">Step 1: Business Details</h3>
               <p className="text-gray-500 mt-1">Enter your business and contact information to get started.</p>
             </div>
 
-            {/* Business Information */}
             <div className="space-y-4 bg-white rounded-lg shadow p-6 mb-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Business Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -247,9 +245,7 @@ export default function SellerRegistrationForm() {
                     placeholder="e.g. 12-3456789"
                     pattern="[0-9\-]+"
                     onKeyDown={(e) => {
-                      // Allow: backspace, delete, tab, escape, enter, and navigation keys
                       if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
-                          // Allow: numbers and hyphen
                           (e.keyCode >= 48 && e.keyCode <= 57) ||
                           e.keyCode === 189) {
                         return;
@@ -281,7 +277,6 @@ export default function SellerRegistrationForm() {
               </div>
             </div>
 
-            {/* Contact Information */}
             <div className="space-y-4 bg-white rounded-lg shadow p-6 mb-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Contact Information</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -313,11 +308,8 @@ export default function SellerRegistrationForm() {
                     placeholder="e.g. (555) 123-4567"
                     pattern="[\d\s\(\)\-\+]+"
                     onKeyDown={(e) => {
-                      // Allow: backspace, delete, tab, escape, enter, and navigation keys
                       if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
-                          // Allow: numbers
                           (e.keyCode >= 48 && e.keyCode <= 57) ||
-                          // Allow: parentheses, space, hyphen, plus
                           [32, 40, 41, 45, 43].includes(e.keyCode)) {
                         return;
                       }
@@ -334,7 +326,6 @@ export default function SellerRegistrationForm() {
               </div>
             </div>
 
-            {/* Address Information */}
             <div className="space-y-4 bg-white rounded-lg shadow p-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Address Information</h3>
               <div>
@@ -388,9 +379,7 @@ export default function SellerRegistrationForm() {
                     placeholder="e.g. 10001"
                     pattern="[0-9]+"
                     onKeyDown={(e) => {
-                      // Allow: backspace, delete, tab, escape, enter, and navigation keys
                       if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
-                          // Allow: numbers only
                           (e.keyCode >= 48 && e.keyCode <= 57)) {
                         return;
                       }
@@ -409,13 +398,11 @@ export default function SellerRegistrationForm() {
           </>
         ) : currentPage === 2 ? (
           <>
-            {/* Step Subtitle */}
             <div className="mb-6 text-center">
               <h3 className="text-xl font-semibold text-blue-700">Step 2: Partnership & Bank Details</h3>
               <p className="text-gray-500 mt-1">Tell us about your partnership preferences and payment information.</p>
             </div>
 
-            {/* Partnership Details */}
             <div className="space-y-4 bg-white rounded-lg shadow p-6 mb-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Partnership Details</h3>
               <div>
@@ -461,7 +448,6 @@ export default function SellerRegistrationForm() {
               </div>
             </div>
 
-            {/* Bank Account Information */}
             <div className="space-y-4 bg-white rounded-lg shadow p-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Bank Account Information</h3>
               <div>
@@ -482,13 +468,11 @@ export default function SellerRegistrationForm() {
           </>
         ) : (
           <>
-            {/* Step Subtitle */}
             <div className="mb-6 text-center">
               <h3 className="text-xl font-semibold text-blue-700">Step 3: Document Upload</h3>
               <p className="text-gray-500 mt-1">Upload all required documents for your seller verification.</p>
             </div>
 
-            {/* Document Upload */}
             <div className="space-y-6 bg-white rounded-lg shadow p-6 border border-gray-100">
               <div>
                 <h3 className="text-lg font-semibold text-gray-700 mb-2">Document Upload</h3>

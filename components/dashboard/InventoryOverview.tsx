@@ -11,7 +11,7 @@ import {
   faChartLine 
 } from '@fortawesome/free-solid-svg-icons';
 
-// Low Stock Alerts Data
+// Low Stock Alerts mock data
 const lowStockProducts = [
   { id: 1, name: 'Organic Cotton T-Shirt', stock: 3, minStock: 10, category: 'Clothing' },
   { id: 2, name: 'Handmade Ceramic Mug', stock: 2, minStock: 15, category: 'Home & Garden' },
@@ -20,7 +20,7 @@ const lowStockProducts = [
   { id: 5, name: 'Wooden Phone Stand', stock: 2, minStock: 12, category: 'Electronics' },
 ];
 
-// Top Viewed Products Data
+// Top Viewed Products mock data
 const topViewedProducts = [
   { id: 1, name: 'Handmade Leather Wallet', views: 1247, trend: '+12%', category: 'Accessories' },
   { id: 2, name: 'Organic Cotton T-Shirt', views: 1156, trend: '+8%', category: 'Clothing' },
@@ -29,7 +29,7 @@ const topViewedProducts = [
   { id: 5, name: 'Wooden Phone Stand', views: 743, trend: '+22%', category: 'Electronics' },
 ];
 
-// Product Performance Data
+// Product Performance mock data
 const productPerformanceData = [
   {
     id: 1,
@@ -121,7 +121,6 @@ export default function InventoryOverview() {
 
   return (
     <div className="space-y-6">
-      {/* Low Stock Alerts and Top Viewed Products in Two Columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Low Stock Alerts */}
         <div className="bg-white rounded-lg shadow p-6">

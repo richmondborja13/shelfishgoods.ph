@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { Star, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 import * as Tooltip from '@radix-ui/react-tooltip';
 
+// testimonials contents on the testimonials section
 const testimonials = [
   {
     name: 'Ian Cramer',
@@ -71,6 +72,7 @@ const testimonials = [
   },
 ];
 
+// get cards per view on the testimonials section
 function getCardsPerView() {
   if (typeof window === 'undefined') return 1;
   if (window.innerWidth >= 1024) return 3; // lg+
@@ -138,7 +140,6 @@ export default function TestimonialsSection() {
     <Tooltip.Provider>
       <section id="testimonials" className="py-24 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <motion.div 
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
@@ -157,9 +158,7 @@ export default function TestimonialsSection() {
             </p>
           </motion.div>
 
-          {/* Testimonials Container */}
           <div className="relative">
-            {/* Navigation Buttons - Outside the cards */}
             <button
               onClick={prevSlide}
               className="absolute -left-16 top-1/2 -translate-y-1/2 z-10 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center text-gray-600 hover:text-blue-600 hover:shadow-xl transition-all duration-200 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -176,7 +175,6 @@ export default function TestimonialsSection() {
               <ChevronRight className="w-6 h-6" />
             </button>
 
-            {/* Testimonials Grid */}
             <div
               className={`grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 transition-all duration-400 ${
                 animating ? 'translate-x-full opacity-0' : 'translate-x-0 opacity-100'
@@ -194,22 +192,18 @@ export default function TestimonialsSection() {
                   whileHover={{ y: -5 }}
                 >
                   <div>
-                    {/* Quote Icon */}
                     <div className="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl mb-6 group-hover:scale-110 transition-transform duration-300">
                       <Quote className="w-6 h-6 text-white" />
                     </div>
 
-                    {/* Rating */}
                     <div className="flex items-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
 
-                    {/* Content */}
                     <p className="text-gray-600 mb-6 italic leading-relaxed">"{testimonial.content}"</p>
 
-                    {/* Achievement Badge with Tooltip */}
                     <Tooltip.Root delayDuration={300}>
                       <Tooltip.Trigger asChild>
                         <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-full text-sm font-medium text-green-700 mb-6 cursor-help hover:from-green-100 hover:to-blue-100 transition-colors duration-200">
@@ -229,7 +223,6 @@ export default function TestimonialsSection() {
                     </Tooltip.Root>
                   </div>
 
-                  {/* Author */}
                   <div className="flex items-center mt-auto pt-6 border-t border-gray-100">
                     {testimonial.avatar ? (
                       <img
@@ -251,7 +244,6 @@ export default function TestimonialsSection() {
               ))}
             </div>
 
-            {/* Indicator dots */}
             <div className="flex justify-center mt-12 space-x-3">
               {Array.from({ length: numRounds }).map((_, idx) => (
                 <button
@@ -270,7 +262,6 @@ export default function TestimonialsSection() {
                 />
               ))}
             </div>
-            {/* Read more client stories button */}
             <div className="flex justify-center mt-8">
               <button
                 className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-white"

@@ -91,7 +91,6 @@ export default function Sidebar() {
         collapsed ? 'w-16' : 'w-64'
       } bg-gradient-to-b from-blue-700 to-blue-900 text-white relative`}
     >
-      {/* Logo/Title Centered */}
       <div className="flex items-center justify-center px-4 py-6 border-b border-blue-800">
         {collapsed ? (
           <div className="bg-white rounded-lg p-1">
@@ -101,7 +100,6 @@ export default function Sidebar() {
           <span className="text-xl font-extrabold tracking-widest text-center w-full uppercase">Shelf-ish</span>
         )}
       </div>
-      {/* Collapse button: positioned on the sidebar boundary, centered with title */}
       <button
         className="absolute right-0 top-4 translate-x-1/2 p-1.5 rounded-full bg-blue-500 hover:bg-blue-600 shadow focus:outline-none z-30"
         onClick={() => setCollapsed((c) => !c)}
@@ -136,7 +134,6 @@ export default function Sidebar() {
           </div>
         ))}
       </nav>
-      {/* White divider */}
       <div className="border-t border-white my-0"></div>
       {/* Footer */}
       <div className="px-4 py-4 text-xs text-blue-200 text-center">

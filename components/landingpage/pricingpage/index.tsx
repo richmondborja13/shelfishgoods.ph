@@ -16,7 +16,7 @@ const categories = [
 const categoriesTop = categories.slice(0, 4);
 const categoriesBottom = categories.slice(4, 8);
 
-// Plans and features by category
+// these are the plans by category
 const plansByCategory: { [key: string]: any[] } = {
   'Store Management': [
     {
@@ -381,6 +381,7 @@ const plansByCategory: { [key: string]: any[] } = {
   ],
 };
 
+// these are the features by category
 const featuresByCategory: { [key: string]: any[] } = {
   'Store Management': [
     { feature: 'Product Listings', starter: 'Up to 50', growth: '500', enterprise: 'Unlimited' },
@@ -494,7 +495,6 @@ const PricingPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex flex-col items-center pt-24">
-      {/* Hero Banner */}
       <section className="w-full py-16 flex flex-col items-center">
         <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-3 text-center">Flexible Plans for Every Vendor</h1>
         <p className="text-lg text-gray-700 mb-8 text-center max-w-xl">From small sellers to enterprise partners—choose a plan that grows with your store.</p>
@@ -514,7 +514,6 @@ const PricingPage = () => {
         </div>
       </section>
 
-      {/* Category Buttons Row */}
       <div className="w-full flex flex-col items-center mb-10 gap-3">
         <div className="flex gap-4 justify-center px-4 pb-1">
           {categoriesTop.map((cat) => {
@@ -550,7 +549,6 @@ const PricingPage = () => {
         </div>
       </div>
 
-      {/* Pricing Cards Grid */}
       <section className="w-full max-w-6xl px-4 grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
         {plans.map((plan: any, idx: number) => (
           <div
@@ -650,7 +648,6 @@ const PricingPage = () => {
         </div>
       </section>
 
-      {/* Final CTA Banner */}
       <section className="w-full flex flex-col items-center py-16 bg-gradient-to-r from-blue-600 to-cyan-600">
         <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-2 text-center">Ready to Partner With Us?</h2>
         <p className="text-lg text-cyan-100 mb-8 text-center">Start managing your store efficiently with our all-in-one system.</p>

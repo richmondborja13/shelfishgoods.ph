@@ -13,9 +13,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 md:my-0">
-      {/* Right Form (now first for left side) */}
       <div className="w-full md:w-1/2 relative flex flex-col justify-center">
-        {/* Top Row: Arrow left, Logo/Brand right, at the very top with registration-like padding */}
         <div className="flex flex-col items-start w-full pt-4 pl-4 md:pt-4 md:pl-4">
           <Tooltip.Provider>
             <Tooltip.Root>
@@ -43,12 +41,10 @@ export default function LoginPage() {
         </div>
         <div className="p-8 md:p-12 pt-0 pb-4 md:pt-0 md:pb-8 flex flex-col justify-center h-full">
           <form className="space-y-5">
-            {/* Login your account text */}
             <div className="text-center mb-6">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">Login your account</h3>
               <p className="text-gray-500">Sign in to access your dashboard</p>
             </div>
-            {/* Social sign-in buttons at the top */}
             <div className="flex flex-row gap-3 w-full mb-6">
               <Button type="button" variant="outline" className="flex-1 flex items-center justify-center py-2 rounded-md">
                 <Image src="/images/icons/image.png" alt="Google" width={20} height={20} />
@@ -60,13 +56,11 @@ export default function LoginPage() {
                 <Image src="/images/icons/image copy 2.png" alt="Facebook" width={20} height={20} />
               </Button>
             </div>
-            {/* Divider with 'or' */}
             <div className="flex items-center my-4">
               <div className="flex-grow h-px bg-gray-300" />
               <span className="mx-3 text-gray-500 font-medium">or</span>
               <div className="flex-grow h-px bg-gray-300" />
             </div>
-            {/* Input fields */}
             <div>
               <Label.Root htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email address</Label.Root>
               <input id="email" name="email" type="email" required className="w-full rounded-lg border border-gray-300 px-4 py-2 text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="example@email.com" />
@@ -112,13 +106,10 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
-      {/* Left Graphic (now second for right side) */}
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-blue-600 to-cyan-400 p-8 relative flex-col">
-        {/* Logo at top right */}
         <div className="absolute top-4 right-4 z-20">
           <Image src="/images/icons/logosg.png" alt="Shelf-ish Goods Logo" width={48} height={48} />
         </div>
-        {/* Unique abstract graphic at the top */}
         <div className="flex flex-col items-center justify-center relative flex-grow min-h-[500px] mb-2 mt-16">
           <svg width="440" height="440" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-80 z-0">
             <circle cx="220" cy="220" r="200" fill="#fff" fillOpacity="0.08" />
@@ -127,7 +118,6 @@ export default function LoginPage() {
           </svg>
           <Image src="/images/graphics/image copy.png" alt="Login Illustration" width={5120} height={5120} className="z-10 w-[32rem] h-[32rem] object-contain relative" />
         </div>
-        {/* Headings at the bottom, left-aligned */}
         <div className="z-10 text-left w-full mb-5 flex flex-col gap-2">
           <h2 className="text-2xl font-extrabold text-white drop-shadow-lg">Welcome back, Seller!</h2>
           <p className="text-base text-cyan-50 font-medium drop-shadow">Sign in to manage your store and inventory.</p>

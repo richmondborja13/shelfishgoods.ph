@@ -22,9 +22,7 @@ export default function SellerRegistration() {
 
   return (
     <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 md:my-0">
-      {/* Left Graphic */}
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-blue-600 to-cyan-400 p-8 relative flex-col">
-        {/* Top Left Arrow */}
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -44,7 +42,6 @@ export default function SellerRegistration() {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-        {/* Unique abstract graphic at the top */}
         <div className="flex flex-col items-center justify-center relative flex-grow min-h-[500px] mb-2 mt-16">
           <svg width="440" height="440" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-80 z-0">
             <circle cx="220" cy="220" r="200" fill="#fff" fillOpacity="0.08" />
@@ -53,15 +50,12 @@ export default function SellerRegistration() {
           </svg>
           <img src="/images/graphics/image.png" alt="Vendor graphic" className="w-[32rem] h-[32rem] drop-shadow-xl relative z-10" />
         </div>
-        {/* Headings at the bottom, left-aligned */}
         <div className="z-10 text-left w-full mb-5">
           <h2 className="text-2xl font-extrabold text-white mb-2 drop-shadow-lg">Join Shelf-ish Goods</h2>
           <p className="text-base text-cyan-50 font-medium drop-shadow">Empower your business with modern tools and insights.</p>
         </div>
       </div>
-      {/* Right Form */}
       <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center relative">
-        {/* Logo at top right */}
         <div className="absolute top-4 right-4 z-20">
           <Image src="/images/icons/logosg.png" alt="Shelf-ish Goods Logo" width={48} height={48} />
         </div>

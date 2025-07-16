@@ -40,13 +40,13 @@ ChartJS.register(
   ArcElement
 );
 
-// Payout Data
+// Payout mock data
 const payoutData = {
   availableBalance: 15420,
   nextPayoutDate: 'July 15, 2025',
 };
 
-// Commission Data
+// Commission mock data
 const commissionData = [
   { label: 'Gross Revenue', amount: 45680, color: 'text-gray-900' },
   { label: 'Platform Fee (5%)', amount: 2284, color: 'text-red-600' },
@@ -54,7 +54,7 @@ const commissionData = [
   { label: 'Net Revenue', amount: 42254, color: 'text-green-600' },
 ];
 
-// Returns Data
+// Returns mock data
 const returnsData = {
   totalReturns: 12,
   totalValue: 3240,
@@ -63,7 +63,7 @@ const returnsData = {
   resolvedReturns: 9,
 };
 
-// Revenue Trends Data
+// Revenue Trends mock data
 const revenueTrendsData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   datasets: [
@@ -78,7 +78,7 @@ const revenueTrendsData = {
   ],
 };
 
-// Expense Breakdown Data
+// Expense Breakdown mock data
 const expenseBreakdownData = {
   labels: ['Platform Fees', 'Processing Fees', 'Shipping', 'Marketing', 'Returns'],
   datasets: [
@@ -97,7 +97,7 @@ const expenseBreakdownData = {
   ],
 };
 
-// Profit Margins Data
+// Profit Margins mock data
 const profitMarginsData = {
   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
   datasets: [
@@ -110,7 +110,7 @@ const profitMarginsData = {
   ],
 };
 
-// Financial Alerts Data
+// Financial Alerts mock data
 const financialAlerts = [
   { id: 1, type: 'warning', message: 'High return rate detected (3.2%)', time: '2 hours ago', icon: faExclamationTriangle },
   { id: 2, type: 'success', message: 'Payout processed successfully', time: '1 day ago', icon: faMoneyBillWave },
@@ -134,9 +134,7 @@ export default function FinancialOverview() {
 
   return (
     <div className="space-y-6">
-      {/* Top 3 Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Payout Summary */}
         <div className="bg-white rounded-lg shadow p-6 flex flex-col h-full">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Payout Summary</h2>
@@ -157,7 +155,6 @@ export default function FinancialOverview() {
               </div>
             </div>
             
-            {/* Next Payout */}
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
               <div className="flex items-center gap-3">
                 <FontAwesomeIcon icon={faCalendarAlt} className="text-blue-500 w-5 h-5" />
@@ -169,7 +166,6 @@ export default function FinancialOverview() {
             </div>
           </div>
           
-          {/* Quick Actions - Aligned to Bottom */}
           <div className="space-y-2 mt-auto pt-4">
             <button className="w-full bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors">
               Request Payout
@@ -180,7 +176,6 @@ export default function FinancialOverview() {
           </div>
         </div>
 
-        {/* Commission Breakdown */}
         <div className="bg-white rounded-lg shadow p-6 flex flex-col h-full">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Commission Breakdown</h2>
@@ -220,7 +215,6 @@ export default function FinancialOverview() {
           </div>
         </div>
 
-        {/* Returns Overview */}
         <div className="bg-white rounded-lg shadow p-6 flex flex-col h-full">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-gray-900">Returns & Refunds</h2>
@@ -228,7 +222,6 @@ export default function FinancialOverview() {
           </div>
           
           <div className="flex-1 space-y-4">
-            {/* Return Rate */}
             <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -241,7 +234,6 @@ export default function FinancialOverview() {
               </div>
             </div>
             
-            {/* Return Statistics */}
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-gray-50 rounded-lg p-3">
                 <p className="text-xs text-gray-600">Total Returns</p>
@@ -253,7 +245,6 @@ export default function FinancialOverview() {
               </div>
             </div>
             
-            {/* Return Status */}
             <div className="space-y-2">
               <div className="flex items-center justify-between py-2">
                 <span className="text-sm text-gray-600">Pending Returns</span>
@@ -278,7 +269,6 @@ export default function FinancialOverview() {
         </div>
       </div>
 
-      {/* Additional Financial Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Revenue Trends */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">

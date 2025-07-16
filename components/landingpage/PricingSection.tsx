@@ -49,6 +49,7 @@ interface PricingTier {
   color: string;
 }
 
+// pricing tiers on the pricing section
 const pricingTiers: PricingTier[] = [
   {
     name: 'Starter',
@@ -119,7 +120,6 @@ export default function PricingSection() {
   return (
     <section className="py-24 bg-gradient-to-br from-gray-50 to-white" id="pricing" aria-labelledby="pricing-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -138,7 +138,6 @@ export default function PricingSection() {
           </p>
         </motion.div>
 
-        {/* Billing toggle */}
         <motion.div 
           className="flex justify-center items-center space-x-4 mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -162,7 +161,6 @@ export default function PricingSection() {
           </span>
         </motion.div>
 
-        {/* Pricing tiers */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {pricingTiers.map((tier, index) => {
             const IconComponent = tier.icon;
@@ -189,7 +187,6 @@ export default function PricingSection() {
                 )}
 
                 <div className="p-8">
-                  {/* Icon and Header */}
                   <div className="flex items-center justify-between mb-6">
                     <div className={`flex items-center justify-center w-12 h-12 bg-gradient-to-br ${tier.color} rounded-xl`}>
                       <IconComponent className="w-6 h-6 text-white" />
@@ -202,7 +199,6 @@ export default function PricingSection() {
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{tier.name}</h3>
                   <p className="text-gray-600 mb-8">{tier.description}</p>
 
-                  {/* Price */}
                   <div className="mb-8">
                     <div className="flex items-baseline">
                       <span className="text-4xl font-bold text-gray-900">
@@ -217,7 +213,6 @@ export default function PricingSection() {
                     )}
                   </div>
 
-                  {/* CTA Button */}
                   <Button
                     asChild
                     className={`w-full mb-8 py-3 text-lg font-semibold rounded-xl transition-all duration-200 ${
@@ -232,7 +227,6 @@ export default function PricingSection() {
                     </Link>
                   </Button>
 
-                  {/* Features */}
                   <div>
                     <h4 className="text-sm font-semibold text-gray-900 mb-4">
                       What's included
@@ -264,7 +258,6 @@ export default function PricingSection() {
           })}
         </div>
 
-        {/* FAQ Section */}
         <motion.div 
           className="mt-20 text-center"
           initial={{ opacity: 0, y: 20 }}

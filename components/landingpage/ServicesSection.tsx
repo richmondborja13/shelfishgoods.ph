@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
 export default function ServicesSection() {
+  // services contents on the services section
   const services = [
     {
       title: 'Inventory Management',
@@ -57,7 +58,6 @@ export default function ServicesSection() {
   return (
     <section className="py-24 bg-gradient-to-br from-gray-50 to-white" id="services">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -77,7 +77,6 @@ export default function ServicesSection() {
           </p>
         </motion.div>
 
-        {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {services.map((service, index) => {
             const IconComponent = service.icon;
@@ -116,7 +115,6 @@ export default function ServicesSection() {
           })}
         </div>
 
-        {/* CTA Section */}
         <motion.div 
           className="text-center"
           initial={{ opacity: 0, y: 20 }}

@@ -19,10 +19,10 @@ export default function HeroSection() {
     }
   };
 
-  // Scroll after modal closes
+  // scroll after modal closes
   useEffect(() => {
     if (!modalOpen && scrollTarget) {
-      // Timeout ensures scroll happens after modal is fully closed
+      // timeout ensures scroll happens after modal is fully closed
       setTimeout(() => {
         scrollToSection(scrollTarget);
         setScrollTarget(null);
@@ -30,17 +30,15 @@ export default function HeroSection() {
     }
   }, [modalOpen, scrollTarget]);
 
-  // Typing animation text
   const text = "Shelf-ish Goods Solutions";
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
-    // Start typing animation after initial animations complete
     const timer = setTimeout(() => {
       setIsTyping(true);
-    }, 2000); // Wait for initial animations to complete
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -50,7 +48,7 @@ export default function HeroSection() {
       const timeout = setTimeout(() => {
         setDisplayText(prev => prev + text[currentIndex]);
         setCurrentIndex(prev => prev + 1);
-      }, 120); // Speed of typing
+      }, 120);
       return () => clearTimeout(timeout);
     }
   }, [currentIndex, text, isTyping]);
@@ -58,7 +56,6 @@ export default function HeroSection() {
   return (
     <Tooltip.Provider>
       <section className="min-h-screen flex flex-col justify-center pt-24 pb-16 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden">
-        {/* Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-full opacity-10 blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full opacity-10 blur-3xl"></div>
@@ -66,7 +63,6 @@ export default function HeroSection() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center relative z-10">
           <div className="text-center">
-            {/* Badge */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -77,7 +73,6 @@ export default function HeroSection() {
               Trusted by 10,000+ businesses worldwide
             </motion.div>
 
-            {/* Main Heading */}
             <motion.h1 
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight"
               initial={{ opacity: 0, y: 30 }}
@@ -90,14 +85,14 @@ export default function HeroSection() {
                 animate={{ x: 0, opacity: 1, y: 0 }}
                 transition={{ 
                   duration: 2.5, 
-                  ease: [0.25, 0.46, 0.45, 0.94], // Custom easing for truck-like movement
+                  ease: [0.25, 0.46, 0.45, 0.94],
                   type: "spring",
                   stiffness: 30,
                   damping: 15,
                   mass: 2
                 }}
                 whileInView={{
-                  y: [0, -5, 0, -3, 0], // Slight bouncing effect like a truck on the road
+                  y: [0, -5, 0, -3, 0],
                   transition: {
                     duration: 0.5,
                     delay: 2.5,
@@ -138,7 +133,6 @@ export default function HeroSection() {
               </motion.span>
             </motion.h1>
 
-            {/* Subtitle */}
             <motion.p 
               className="mt-6 max-w-3xl mx-auto text-xl text-gray-600 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
@@ -148,7 +142,6 @@ export default function HeroSection() {
               Simplify vendor management, enhance inventory efficiency, and grow your business with our all-in-one platform built for modern enterprises.
             </motion.p>
 
-            {/* CTA Buttons */}
             <motion.div 
               className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
               initial={{ opacity: 0, y: 20 }}
@@ -192,7 +185,6 @@ export default function HeroSection() {
                     </div>
                     
                     <div className="mt-8 space-y-6">
-                      {/* Key Features */}
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {[
                           { title: 'Vendor Management', desc: 'Centralized control of all your suppliers' },
@@ -210,7 +202,6 @@ export default function HeroSection() {
                         ))}
                       </div>
 
-                      {/* Trust Indicators */}
                       <div className="border-t border-gray-200 pt-6">
                         <div className="flex flex-wrap items-center justify-center gap-6 text-sm text-gray-600">
                           <div className="flex items-center space-x-2">
@@ -228,7 +219,6 @@ export default function HeroSection() {
                         </div>
                       </div>
 
-                      {/* Action Buttons */}
                       <div className="flex flex-col sm:flex-row gap-3 pt-6">
                         <Button 
                           variant="outline" 
@@ -256,7 +246,6 @@ export default function HeroSection() {
               </Dialog.Root>
             </motion.div>
             
-            {/* Feature highlights */}
             <motion.div 
               className="mt-16 flex flex-wrap justify-center gap-8 text-sm text-gray-600"
               initial={{ opacity: 0, y: 20 }}

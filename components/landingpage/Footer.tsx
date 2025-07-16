@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Facebook, Twitter, Instagram, Linkedin, CreditCard, Shield, Smartphone, Users, Store, Settings, HelpCircle } from 'lucide-react';
 
+// footer sections
 const footerSections = [
   {
     title: 'PLATFORM',
@@ -51,6 +52,7 @@ const footerSections = [
   },
 ];
 
+// social links
 const socialLinks = [
   { icon: Facebook, href: 'https://facebook.com', label: 'Facebook' },
   { icon: Twitter, href: 'https://twitter.com', label: 'Twitter' },
@@ -58,7 +60,7 @@ const socialLinks = [
   { icon: Linkedin, href: 'https://linkedin.com', label: 'LinkedIn' },
 ];
 
-// Payment icons as images from /public/payments
+// payment icons as images from /public/payments
 const paymentImages = [
   { src: '/payments/visa.png', alt: 'Visa' },
   { src: '/payments/maya.png', alt: 'Maya' },
@@ -85,7 +87,6 @@ const Footer = () => {
   return (
     <footer className="w-full bg-gradient-to-r from-blue-50 to-cyan-50 border-t border-blue-100 mt-16 pt-12">
       <div className="max-w-[90rem] mx-auto px-6 md:px-12">
-        {/* Columns */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-10 pb-12">
           {footerSections.map(section => (
             <div key={section.title}>
@@ -102,16 +103,12 @@ const Footer = () => {
             </div>
           ))}
         </div>
-        {/* Payment icons row */}
         <div className="flex flex-col sm:flex-row items-center border-t border-blue-100 py-6 gap-6">
-          {/* Payment icons left */}
           <PaymentIcons />
-          {/* Centered logo/tagline */}
           <div className="flex-1 flex flex-col items-center justify-center">
             <span className="text-xl font-extrabold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">Shelf-ish Goods</span>
             <span className="text-xs text-gray-400 mt-1">Empowering Modern Vendors</span>
           </div>
-          {/* Social icons right */}
           <div className="flex gap-2">
             {socialLinks.map(({ icon: Icon, href, label }) => (
               <a
@@ -127,7 +124,6 @@ const Footer = () => {
             ))}
           </div>
         </div>
-        {/* Legal and copyright */}
         <div className="flex flex-col md:flex-row items-center justify-between border-t border-blue-100 py-4 text-xs text-gray-400 bg-white/30 mt-2">
           <div className="flex flex-wrap gap-4 mb-2 md:mb-0">
             <Link href="#privacy" className="hover:text-blue-600">Privacy policy</Link>

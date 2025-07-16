@@ -25,6 +25,7 @@ interface Product {
   dateAdded: string;
 }
 
+// mock data for Product Listings
 const MOCK_PRODUCTS: Product[] = [
   { id: '1', name: 'Premium Headphones', category: 'Electronics', price: 199.99, stock: 45, status: 'Active', sku: 'ELEC-001', dateAdded: '2024-06-01' },
   { id: '2', name: 'Wireless Mouse', category: 'Electronics', price: 49.99, stock: 0, status: 'Out of Stock', sku: 'ELEC-002', dateAdded: '2024-06-03' },
@@ -50,7 +51,7 @@ const MOCK_PRODUCTS: Product[] = [
 
 const ROWS_OPTIONS = [5, 10, 20];
 
-// Product Suggestions Data
+// mock data for Product Suggestions
 const productSuggestions = [
   {
     id: 1,
@@ -78,7 +79,7 @@ const productSuggestions = [
   },
 ];
 
-// Low Performing Products Data
+// mock data for Low Performing Products
 const lowPerformingProducts = [
   {
     id: 1,
@@ -193,7 +194,6 @@ export default function ProductListings() {
 
   return (
     <div className="space-y-6">
-      {/* Product Suggestions and Low Performing Products */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Product Suggestions */}
         <div className="bg-white rounded-lg shadow p-6 flex flex-col">
@@ -446,7 +446,6 @@ export default function ProductListings() {
           </tbody>
         </table>
       </div>
-      {/* Pagination and Rows Dropdown */}
       <div className="flex flex-col md:flex-row items-center justify-between gap-2 px-2 py-4 bg-gray-50 border-t border-gray-200 rounded-b-2xl">
         <div className="flex items-center gap-2">
           <span className="text-xs font-semibold text-black">Rows per page:</span>

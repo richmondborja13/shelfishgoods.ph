@@ -15,6 +15,7 @@ import {
 import * as Tooltip from '@radix-ui/react-tooltip';
 
 export default function AboutSection() {
+  // values card content on the about section
   const values = [
     {
       title: 'Innovation',
@@ -54,6 +55,7 @@ export default function AboutSection() {
     }
   ];
 
+  // stats card content on the about section
   const stats = [
     { number: '10,000+', label: 'Clients Worldwide', icon: Users },
     { number: '99.9%', label: 'Uptime', icon: TrendingUp },
@@ -63,7 +65,6 @@ export default function AboutSection() {
   return (
     <section id="about" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div 
           className="text-center mb-20"
           initial={{ opacity: 0, y: 20 }}
@@ -83,7 +84,6 @@ export default function AboutSection() {
           </p>
         </motion.div>
 
-        {/* Story Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-24">
           <motion.div 
             className="relative"
@@ -122,7 +122,6 @@ export default function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Values Section */}
         <Tooltip.Provider>
         <motion.div 
           className="mb-24"
@@ -174,8 +173,7 @@ export default function AboutSection() {
           </div>
         </motion.div>
         </Tooltip.Provider>
-
-        {/* Stats Section */}
+            
         <motion.div 
           className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-3xl p-12 text-white"
           initial={{ opacity: 0, y: 20 }}

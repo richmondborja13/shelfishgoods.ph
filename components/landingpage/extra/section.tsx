@@ -8,7 +8,6 @@ export default function StoreManagementSection() {
   return (
     <section className="py-28 bg-gradient-to-br from-[#1a1440] to-[#221a4d] text-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Headline */}
         <motion.div
           className="text-center mb-20"
           initial={{ opacity: 0, y: 20 }}
@@ -24,7 +23,6 @@ export default function StoreManagementSection() {
           </p>
         </motion.div>
 
-        {/* Feature Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
           <motion.div
             className="bg-[#2a2260] rounded-2xl p-8 shadow-lg"
@@ -72,8 +70,7 @@ export default function StoreManagementSection() {
             </p>
           </motion.div>
         </div>
-
-        {/* Visual + CTA */}
+    
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <motion.div
             className="relative w-full lg:w-1/2 flex justify-center mb-12 lg:mb-0"

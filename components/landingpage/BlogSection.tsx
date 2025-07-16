@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/hover-card';
 import { Calendar, Clock, User, ArrowRight, Eye } from 'lucide-react';
 
+// mock contents on card on the blog section
 const blogPosts = [
   {
     id: 1,
@@ -65,7 +66,6 @@ export default function BlogSection() {
           <p className="mt-4 text-xl text-gray-500">Stay updated with industry trends and best practices</p>
         </div>
 
-        {/* Featured Post */}
         {featuredPost && (
           <div className="mt-16">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -133,7 +133,6 @@ export default function BlogSection() {
           </div>
         )}
 
-        {/* Regular Posts */}
         <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {regularPosts.map((post) => (
             <HoverCard key={post.id}>
@@ -182,7 +181,6 @@ export default function BlogSection() {
           ))}
         </div>
 
-        {/* View All Posts Button */}
         <div className="mt-12 text-center">
           <Button asChild>
             <Link href="#" className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">

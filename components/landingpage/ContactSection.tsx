@@ -61,15 +61,16 @@ export default function ContactSection() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
+    // form submission delay
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Reset form
+    // reset form
     const form = e.target as HTMLFormElement;
     form.reset();
     setIsSubmitting(false);
   };
 
+  // contact info on the contact section
   const contactInfo = [
     {
       icon: Mail,
@@ -100,7 +101,6 @@ export default function ContactSection() {
   return (
     <section className="py-32 bg-gradient-to-br from-gray-50 to-white" id="contact">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -120,7 +120,6 @@ export default function ContactSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -193,7 +192,6 @@ export default function ContactSection() {
             </div>
           </motion.div>
 
-          {/* Contact Information */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -232,7 +230,6 @@ export default function ContactSection() {
               </div>
             </div>
 
-            {/* Quick Actions */}
             <div className="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-2xl p-8 text-white">
               <h3 className="text-xl font-bold mb-6">Quick Actions</h3>
               <div className="space-y-4">

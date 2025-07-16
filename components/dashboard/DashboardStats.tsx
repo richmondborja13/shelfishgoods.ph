@@ -117,7 +117,7 @@ export default function DashboardStats() {
     },
   ];
 
-  // Example data for Sales Over Time (Line Chart)
+  // mock data for Sales Over Time (Line Chart)
   const salesLineData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
@@ -151,7 +151,7 @@ export default function DashboardStats() {
     ],
   };
 
-  // Example data for Top Selling Products (Bar Chart)
+  // mock data for Top Selling Products (Bar Chart)
   const topProductsBarData = {
     labels: ["Laptop", "Shirt", "Sofa", "Lipstick", "Book"],
     datasets: [
@@ -169,7 +169,7 @@ export default function DashboardStats() {
     ],
   };
 
-  // Example data for Order Status (Pie Chart)
+  // mock data for Order Status (Pie Chart)
   const orderStatusPieData = {
     labels: ["Completed", "Pending", "Cancelled"],
     datasets: [
@@ -182,7 +182,7 @@ export default function DashboardStats() {
     ],
   };
 
-  // Example data for Customer Growth (Line Chart)
+  // mock data for Customer Growth (Line Chart)
   const customerGrowthData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
@@ -197,7 +197,7 @@ export default function DashboardStats() {
     ],
   };
 
-  // Example data for Monthly New Orders (Bar Chart)
+  // mock data for Monthly New Orders (Bar Chart)
   const monthlyOrdersData = {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
     datasets: [
@@ -215,8 +215,7 @@ export default function DashboardStats() {
         {stats.map((stat, index) => (
           <StatCard key={index} {...stat} />
         ))}
-      </div>
-      {/* Graphs: 2x2 grid, line+bar on top, pie+pie on bottom */}
+      </div>  
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="flex flex-col gap-6">
           <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">

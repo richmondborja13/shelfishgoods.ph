@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/hover-card';
 import { TrendingUp, Users, DollarSign, Eye, ArrowRight } from 'lucide-react';
 
+// mock contents on card on the case studies section
 const caseStudies = [
   {
     id: 1,
@@ -244,8 +245,7 @@ export default function CaseStudiesSection() {
             </HoverCard>
           ))}
         </div>
-
-        {/* CTA Section */}
+          
         <div className="mt-16 text-center">
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Transform Your Business?</h3>

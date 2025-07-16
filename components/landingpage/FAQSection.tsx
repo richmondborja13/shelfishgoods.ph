@@ -54,6 +54,7 @@ const AccordionContent = React.forwardRef<
 AccordionContent.displayName = AccordionPrimitive.Content.displayName
 
 export default function FAQSection() {
+  // faq content on the faq section
   const faqs = [
     {
       question: 'How long does it take to set up Shelf-ish Goods?',

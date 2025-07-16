@@ -13,13 +13,14 @@ const Navigation = () => {
   const [isPricingDropdownOpen, setIsPricingDropdownOpen] = useState(false);
   const pathname = usePathname();
 
+  // nav items on the navigation
   const navItems = [
     { name: 'Pricing', path: '#pricing' },
     { name: 'ServicesDropdown', path: '' },
     { name: 'Contact', path: '#contact' }
   ];
 
-  // Grouped dropdown items for Hostinger-style layout
+  // grouped dropdown items for Hostinger-style layout
   const pricingDropdownSections = [
     {
       title: 'PLANS',
@@ -124,7 +125,6 @@ const Navigation = () => {
     <nav className="fixed w-full bg-white/95 backdrop-blur-md z-50 border-b border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-20 relative">
-          {/* Logo */}
           <div className="flex items-center relative z-10">
             <button
               onClick={() => router.push('/')}
@@ -136,10 +136,8 @@ const Navigation = () => {
             </button>
           </div>
 
-          {/* Desktop Navigation - Centered */}
           <div className="hidden lg:flex items-center justify-center absolute inset-0">
             <div className="flex items-center space-x-1">
-              {/* Pricing button - just scrolls */}
               <Link
                 href="/pricing"
                 className="text-gray-700 hover:text-blue-600 px-4 py-2 text-base font-oswald font-medium transition-all duration-200 cursor-pointer rounded-lg hover:bg-gray-50"
@@ -147,7 +145,6 @@ const Navigation = () => {
                 Pricing
               </Link>
               
-              {/* Services Dropdown */}
               <div className="relative group">
                 <button
                   onClick={() => {
@@ -164,7 +161,6 @@ const Navigation = () => {
                     className="absolute top-full -left-64 mt-2 w-[900px] bg-white rounded-2xl shadow-2xl border border-gray-100 py-8 z-50"
                   >
                     <div className="flex gap-8 px-8">
-                      {/* Section columns */}
                       {pricingDropdownSections.map((section, idx) => (
                         <div key={section.title} className="min-w-[180px] flex-1">
                           <div className="text-xs font-bold text-gray-500 mb-3 tracking-widest">{section.title}</div>
@@ -195,7 +191,6 @@ const Navigation = () => {
                         </div>
                       ))}
                     </div>
-                    {/* Highlighted CTA at bottom */}
                     <div className="px-8 mt-8">
                       <Link
                         href={startFreeTrial.path}
@@ -214,7 +209,6 @@ const Navigation = () => {
                 )}
               </div>
               
-              {/* Explore Dropdown */}
               <div className="relative group">
                 <button
                   onClick={() => {
@@ -231,7 +225,6 @@ const Navigation = () => {
                     className="absolute top-full -left-32 mt-2 w-[600px] bg-white rounded-xl shadow-xl border border-gray-100 py-6 px-6 z-50"
                   >
                     <div className="grid grid-cols-2 gap-6">
-                      {/* Left column: Compact list */}
                       <div className="space-y-4">
                         <button 
                           onClick={() => {
@@ -286,7 +279,6 @@ const Navigation = () => {
                           </div>
                         </button>
                       </div>
-                      {/* Right column: Compact card */}
                       <div className="flex flex-col justify-center">
                         <button 
                           onClick={() => {
@@ -310,7 +302,6 @@ const Navigation = () => {
                 )}
               </div>
               
-              {/* Other nav items */}
               {navItems.filter(item => item.name !== 'Pricing' && item.name !== 'ServicesDropdown' && item.name !== 'Blog').map((item) => (
                 <button
                   key={item.path}
@@ -323,7 +314,6 @@ const Navigation = () => {
             </div>
           </div>
 
-          {/* Register Button - Right Side */}
           <div className="hidden lg:flex items-center space-x-4">
             <Link
               href="/user/registration"
@@ -333,7 +323,6 @@ const Navigation = () => {
             </Link>
           </div>
 
-          {/* Mobile Navigation Button */}
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -349,8 +338,7 @@ const Navigation = () => {
           </div>
         </div>
       </div>
-
-      {/* Mobile Navigation Menu */}
+              
       {isOpen && (
         <div className="lg:hidden">
           <div className="px-4 pt-4 pb-6 space-y-3 bg-white shadow-xl border-t border-gray-100">
@@ -367,7 +355,6 @@ const Navigation = () => {
               </button>
             ))}
             
-            {/* Mobile Pricing button */}
             <Link
               href="/components/landingpage/pricingpage"
               className="text-gray-700 hover:bg-gray-50 hover:text-blue-600 block px-4 py-3 rounded-lg text-lg font-oswald font-medium transition-all duration-200 w-full text-left"

@@ -45,6 +45,7 @@ const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0
 const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 const years = Array.from({ length: 6 }, (_, i) => String(2020 + i));
 
+// mock data for sales graph overview
 const salesDataByRange: Record<string, { labels: string[]; values: number[] }> = {
   Today: {
     labels: ['Mon'],
@@ -68,7 +69,7 @@ const salesDataByRange: Record<string, { labels: string[]; values: number[] }> =
   },
 };
 
-// Top Selling Products Data
+// mock data for Top Selling Products
 const topSellingProducts = [
   { id: 1, name: 'Premium Wireless Headphones', sales: 234, revenue: 46800, growth: '+15%', category: 'Electronics' },
   { id: 2, name: 'Organic Cotton T-Shirt', sales: 189, revenue: 3780, growth: '+8%', category: 'Apparel' },
@@ -77,7 +78,7 @@ const topSellingProducts = [
   { id: 5, name: 'Natural Face Cream', sales: 128, revenue: 2560, growth: '+12%', category: 'Beauty' },
 ];
 
-// Sales by Category Data
+// mock data for Sales by Category
 const salesByCategoryData = {
   labels: ['Electronics', 'Apparel', 'Home', 'Beauty', 'Sports'],
   datasets: [
@@ -96,7 +97,7 @@ const salesByCategoryData = {
   ],
 };
 
-// Recent Orders Data
+// mock data for Recent Orders
 const recentOrders = [
   { id: '#ORD-001', customer: 'Maria Santos', amount: 299.99, status: 'Completed', date: '2 hours ago', product: 'Wireless Headphones' },
   { id: '#ORD-002', customer: 'John Dela Cruz', amount: 89.99, status: 'Processing', date: '4 hours ago', product: 'Cotton T-Shirt' },
@@ -105,7 +106,7 @@ const recentOrders = [
   { id: '#ORD-005', customer: 'Lisa Chen', amount: 199.99, status: 'Processing', date: '10 hours ago', product: 'Fitness Tracker' },
 ];
 
-// Sales Metrics Data
+// mock data for Sales Metrics
 const salesMetrics = [
   { title: 'Total Revenue', value: '$124,567', change: '+12.5%', isPositive: true, icon: faDollarSign, color: 'text-green-600' },
   { title: 'Orders Today', value: '156', change: '+8.2%', isPositive: true, icon: faShoppingCart, color: 'text-blue-600' },
@@ -195,12 +196,10 @@ export default function SalesChart() {
       <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
         <div className="flex flex-col gap-2 mb-6">
           <div className="flex flex-row items-center justify-between gap-2 w-full">
-            {/* Left: Heading */}
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Sales Overview</h2>
               <p className="text-sm text-gray-500">Track your sales performance</p>
             </div>
-            {/* Center: Time Range Buttons */}
             <div className="flex-1 flex justify-center">
               <div className="flex flex-wrap items-center gap-2 md:gap-4">
                 {timeRanges.map((range) => (
@@ -221,7 +220,6 @@ export default function SalesChart() {
                 ))}
               </div>
             </div>
-            {/* Right: Dropdown or placeholder */}
             <div className="flex-none min-w-[110px] flex justify-end">
               {selectedRange === 'Week' ? (
                 <div className="flex items-center gap-1">
@@ -363,7 +361,6 @@ export default function SalesChart() {
         </div>
       </div>
 
-      {/* Additional Sales Cards */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Selling Products */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
