@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import ScrollHandler from '@/components/ScrollHandler';
+import ScrollToHero from '@/components/ScrollToHero';
 import Navigation from '@/components/landingpage/Navigation';
 import HeroSection from '@/components/landingpage/HeroSection';
 import ServicesSection from '@/components/landingpage/ServicesSection';
@@ -18,6 +19,9 @@ export default function Home() {
     <>
       <Suspense fallback={null}>
         <ScrollHandler />
+      </Suspense>
+      <Suspense fallback={null}>
+        <ScrollToHero />
       </Suspense>
       <Navigation />
       <HeroSection />
