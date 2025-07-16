@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { CheckCircle, XCircle, Users, BarChart2, Zap, Star, UserPlus, Layers, TrendingUp, Headset, Shield, ShoppingCart, Package, Link2, CreditCard, Smartphone, Wrench, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
