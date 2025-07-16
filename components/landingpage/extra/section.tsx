@@ -1,5 +1,3 @@
-"use client";
-
 import { motion } from "framer-motion";
 import { Globe, BarChart3, RefreshCcw, ShieldCheck, Users, Store } from "lucide-react";
 import { Button } from "@/components/ui/button";
