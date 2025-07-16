@@ -32,6 +32,13 @@ const Navigation = () => {
           description: 'Standard subscription tiers (Starter, Growth, Enterprise)'
         },
         {
+          name: 'Growth Vendor Plan',
+          path: '#pricing',
+          emoji: '📈',
+          description: 'Best for scaling businesses',
+          badge: 'RECOMMENDED'
+        },
+        {
           name: 'Compare Plans',
           path: '#pricing',
           emoji: '🧾',
@@ -94,7 +101,8 @@ const Navigation = () => {
           name: 'Add-ons & Extras',
           path: '#pricing',
           emoji: '🛠️',
-          description: 'Optional features like integrations, custom domains'
+          description: 'Optional features like integrations, custom domains',
+          badge: 'FLEXIBLE'
         },
         {
           name: 'Mobile App Access',
@@ -105,10 +113,19 @@ const Navigation = () => {
         }
       ]
     }
-  ];
+  ].map(section => ({
+    ...section,
+    items: section.items.slice().sort((a, b) => {
+      if (a.badge === 'POPULAR') return -1;
+      if (b.badge === 'POPULAR') return 1;
+      if (a.badge && !b.badge) return -1;
+      if (!a.badge && b.badge) return 1;
+      return 0;
+    })
+  }));
   const startFreeTrial = {
     name: 'Start Free Trial',
-    path: '/registration',
+    path: '/user/registration',
     emoji: '🆓',
     description: 'Sign up with free access for limited time',
     highlight: true
@@ -158,31 +175,47 @@ const Navigation = () => {
                 </button>
                 {isPricingDropdownOpen && (
                   <div 
-                    className="absolute top-full -left-64 mt-2 w-[900px] bg-white rounded-2xl shadow-2xl border border-gray-100 py-8 z-50"
+                    className="absolute top-full left-[-400px] mt-2 w-[1100px] bg-white rounded-2xl shadow-2xl border border-gray-100 px-6 py-6 z-50"
                   >
-                    <div className="flex gap-8 px-8">
+                    <div className="flex gap-8 px-4">
                       {pricingDropdownSections.map((section, idx) => (
                         <div key={section.title} className="min-w-[180px] flex-1">
-                          <div className="text-xs font-bold text-gray-500 mb-3 tracking-widest">{section.title}</div>
-                          <ul className="space-y-2">
+                          <div className="text-[11px] font-bold text-gray-500 mb-2 tracking-widest">{section.title}</div>
+                          <ul className="space-y-1">
                             {section.items.map((item) => (
                               <li key={item.name}>
                                 <button
                                   onClick={() => {
-                                    scrollToSection(item.path);
-                                    setIsPricingDropdownOpen(false);
+                                    if (item.name === 'Mobile App Access') {
+                                      router.push('/pricing?category=mobile-app-access');
+                                      setIsPricingDropdownOpen(false);
+                                    } else if (item.name === 'Add-ons & Extras') {
+                                      router.push('/pricing?category=add-ons-extras');
+                                      setIsPricingDropdownOpen(false);
+                                    } else if (item.name === 'Payment Methods') {
+                                      router.push('/pricing?category=payments-billing');
+                                      setIsPricingDropdownOpen(false);
+                                    } else {
+                                      scrollToSection(item.path);
+                                      setIsPricingDropdownOpen(false);
+                                    }
                                   }}
-                                  className="flex items-start w-full text-left space-x-3 rounded-lg px-2 py-2 hover:bg-gray-50 transition-colors group"
+                                  className="flex items-start w-full text-left space-x-3 rounded-lg px-2 py-1 hover:bg-gray-50 transition-colors group"
                                 >
                                   <span className="text-xl mt-0.5">{item.emoji}</span>
                                   <span className="flex-1">
-                                    <span className="font-semibold text-gray-900 text-base flex items-center">
+                                    <span className="font-semibold text-gray-900 text-sm flex items-center">
                                       {item.name}
                                       {item.badge && (
-                                        <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold ${item.badge === 'NEW' ? 'bg-cyan-100 text-cyan-700' : item.badge === 'POPULAR' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>{item.badge}</span>
+                                        <span className={`ml-2 px-2 py-0.5 rounded-full text-[10px] font-bold
+                                          ${item.badge === 'NEW' ? 'bg-cyan-100 text-cyan-700'
+                                            : item.badge === 'POPULAR' ? 'bg-blue-100 text-blue-700'
+                                            : item.badge === 'RECOMMENDED' ? 'bg-green-100 text-green-700'
+                                            : item.badge === 'FLEXIBLE' ? 'bg-purple-100 text-purple-700'
+                                            : 'bg-gray-100 text-gray-600'}`}>{item.badge}</span>
                                       )}
                                     </span>
-                                    <span className="block text-sm text-gray-500 leading-snug">{item.description}</span>
+                                    <span className="block text-xs text-gray-500 leading-snug">{item.description}</span>
                                   </span>
                                 </button>
                               </li>
@@ -222,16 +255,34 @@ const Navigation = () => {
                 </button>
                 {isAboutDropdownOpen && (
                   <div 
-                    className="absolute top-full -left-32 mt-2 w-[600px] bg-white rounded-xl shadow-xl border border-gray-100 py-6 px-6 z-50"
+                    className="absolute top-full left-[-200px] mt-2 w-[600px] bg-white rounded-xl shadow-xl border border-gray-100 py-6 px-6 z-50"
                   >
                     <div className="grid grid-cols-2 gap-6">
+                      <div>
+                        <button 
+                          onClick={() => {
+                            scrollToSection('#testimonials');
+                            setIsAboutDropdownOpen(false);
+                          }}
+                          className="rounded-lg overflow-hidden transition-colors hover:shadow-xl w-full"
+                        >
+                          <img src="/images/client.png" alt="Client stories" className="w-full h-32 object-cover object-center" />
+                          <div className="p-4">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-sm text-gray-900">Client stories</span>
+                              <ArrowUpRight className="w-4 h-4 text-gray-900" />
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">Our clients' successes are our favorite stories</div>
+                          </div>
+                        </button>
+                      </div>
                       <div className="space-y-4">
                         <button 
                           onClick={() => {
                             scrollToSection('#blog');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <Pen className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -244,7 +295,7 @@ const Navigation = () => {
                             scrollToSection('#about');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <Rocket className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -257,7 +308,7 @@ const Navigation = () => {
                             scrollToSection('#faq');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <HelpCircle className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -270,30 +321,12 @@ const Navigation = () => {
                             scrollToSection('#values');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <Heart className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
                             <div className="font-bold text-sm text-gray-900">Values</div>
                             <div className="text-xs text-gray-500 mt-0.5">What drives us and our mission</div>
-                          </div>
-                        </button>
-                      </div>
-                      <div className="flex flex-col justify-center">
-                        <button 
-                          onClick={() => {
-                            scrollToSection('#testimonials');
-                            setIsAboutDropdownOpen(false);
-                          }}
-                          className="bg-[#e7edfa] rounded-lg overflow-hidden hover:bg-[#d1d9f0] transition-colors"
-                        >
-                          <img src="/public/images/testimonials/anna-lee.jpeg" alt="Client stories" className="w-full h-32 object-cover object-center" />
-                          <div className="p-4">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-sm text-gray-900">Client stories</span>
-                              <ArrowUpRight className="w-4 h-4 text-gray-900" />
-                            </div>
-                            <div className="text-xs text-gray-500 mt-1">Our clients' successes are our favorite stories</div>
                           </div>
                         </button>
                       </div>

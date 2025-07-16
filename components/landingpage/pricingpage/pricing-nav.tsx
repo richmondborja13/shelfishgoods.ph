@@ -14,8 +14,7 @@ const Navigation = () => {
   const pathname = usePathname();
 
   const navItems = [
-    { name: 'Pricing', path: '#pricing' },
-    { name: 'ServicesDropdown', path: '' },
+    { name: 'Pricing', path: '/pricing' },
     { name: 'Contact', path: '#contact' }
   ];
 
@@ -139,74 +138,10 @@ const Navigation = () => {
             <div className="flex items-center space-x-1">
               <Link
                 href="/pricing"
-                className="text-gray-700 hover:text-blue-600 px-4 py-2 text-base font-oswald font-medium transition-all duration-200 cursor-pointer rounded-lg hover:bg-gray-50"
+                className={`px-4 py-2 text-base font-oswald font-medium transition-all duration-200 cursor-pointer rounded-lg hover:bg-gray-50 ${pathname === '/pricing' ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600'}`}
               >
                 Pricing
               </Link>
-              
-              <div className="relative group">
-                <button
-                  onClick={() => {
-                    setIsPricingDropdownOpen(!isPricingDropdownOpen);
-                    if (isAboutDropdownOpen) setIsAboutDropdownOpen(false);
-                  }}
-                  className="text-gray-700 hover:text-blue-600 px-4 py-2 text-base font-oswald font-medium transition-all duration-200 cursor-pointer flex items-center space-x-1 rounded-lg hover:bg-gray-50"
-                >
-                  <span>Services</span>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isPricingDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isPricingDropdownOpen && (
-                  <div 
-                    className="absolute top-full -left-64 mt-2 w-[900px] bg-white rounded-2xl shadow-2xl border border-gray-100 py-8 z-50"
-                  >
-                    <div className="flex gap-8 px-8">
-                      {pricingDropdownSections.map((section, idx) => (
-                        <div key={section.title} className="min-w-[180px] flex-1">
-                          <div className="text-xs font-bold text-gray-500 mb-3 tracking-widest">{section.title}</div>
-                          <ul className="space-y-2">
-                            {section.items.map((item) => (
-                              <li key={item.name}>
-                                <button
-                                  onClick={() => {
-                                    scrollToSection(item.path);
-                                    setIsPricingDropdownOpen(false);
-                                  }}
-                                  className="flex items-start w-full text-left space-x-3 rounded-lg px-2 py-2 hover:bg-gray-50 transition-colors group"
-                                >
-                                  <span className="text-xl mt-0.5">{item.emoji}</span>
-                                  <span className="flex-1">
-                                    <span className="font-semibold text-gray-900 text-base flex items-center">
-                                      {item.name}
-                                      {item.badge && (
-                                        <span className={`ml-2 px-2 py-0.5 rounded-full text-xs font-bold ${item.badge === 'NEW' ? 'bg-cyan-100 text-cyan-700' : item.badge === 'POPULAR' ? 'bg-blue-100 text-blue-700' : 'bg-gray-100 text-gray-600'}`}>{item.badge}</span>
-                                      )}
-                                    </span>
-                                    <span className="block text-sm text-gray-500 leading-snug">{item.description}</span>
-                                  </span>
-                                </button>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="px-8 mt-8">
-                      <Link
-                        href={startFreeTrial.path}
-                        className="flex items-center space-x-3 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 border border-blue-200 rounded-xl hover:from-blue-100 hover:to-cyan-100 transition-all duration-200 shadow group"
-                        onClick={() => setIsPricingDropdownOpen(false)}
-                      >
-                        <span className="text-2xl">{startFreeTrial.emoji}</span>
-                        <div className="flex-1">
-                          <div className="font-semibold text-blue-900 text-base">{startFreeTrial.name}</div>
-                          <div className="text-sm text-blue-700">{startFreeTrial.description}</div>
-                        </div>
-                        <span className="ml-2 px-3 py-1 rounded-full text-xs font-bold bg-cyan-600 text-white">FREE</span>
-                      </Link>
-                    </div>
-                  </div>
-                )}
-              </div>
               
               <div className="relative group">
                 <button
@@ -221,16 +156,34 @@ const Navigation = () => {
                 </button>
                 {isAboutDropdownOpen && (
                   <div 
-                    className="absolute top-full -left-32 mt-2 w-[600px] bg-white rounded-xl shadow-xl border border-gray-100 py-6 px-6 z-50"
+                    className="absolute top-full left-[-200px] mt-2 w-[600px] bg-white rounded-xl shadow-xl border border-gray-100 py-6 px-6 z-50"
                   >
                     <div className="grid grid-cols-2 gap-6">
+                      <div>
+                        <button 
+                          onClick={() => {
+                            scrollToSection('#testimonials');
+                            setIsAboutDropdownOpen(false);
+                          }}
+                          className="rounded-lg overflow-hidden transition-colors hover:shadow-xl w-full"
+                        >
+                          <img src="/images/client.png" alt="Client stories" className="w-full h-32 object-cover object-center" />
+                          <div className="p-4">
+                            <div className="flex items-center gap-2">
+                              <span className="font-bold text-sm text-gray-900">Client stories</span>
+                              <ArrowUpRight className="w-4 h-4 text-gray-900" />
+                            </div>
+                            <div className="text-xs text-gray-500 mt-1">Our clients' successes are our favorite stories</div>
+                          </div>
+                        </button>
+                      </div>
                       <div className="space-y-4">
                         <button 
                           onClick={() => {
                             scrollToSection('#blog');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <Pen className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -243,7 +196,7 @@ const Navigation = () => {
                             scrollToSection('#about');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <Rocket className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -256,7 +209,7 @@ const Navigation = () => {
                             scrollToSection('#faq');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <HelpCircle className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -269,7 +222,7 @@ const Navigation = () => {
                             scrollToSection('#values');
                             setIsAboutDropdownOpen(false);
                           }}
-                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors"
+                          className="flex items-start gap-3 group bg-transparent p-0 border-0 text-left hover:bg-gray-50 rounded-lg p-2 transition-colors hover:shadow-xl"
                         >
                           <Heart className="w-5 h-5 text-gray-900 mt-0.5 flex-shrink-0" />
                           <div>
@@ -278,30 +231,12 @@ const Navigation = () => {
                           </div>
                         </button>
                       </div>
-                      <div className="flex flex-col justify-center">
-                        <button 
-                          onClick={() => {
-                            scrollToSection('#testimonials');
-                            setIsAboutDropdownOpen(false);
-                          }}
-                          className="bg-[#e7edfa] rounded-lg overflow-hidden hover:bg-[#d1d9f0] transition-colors"
-                        >
-                          <img src="/public/images/testimonials/anna-lee.jpeg" alt="Client stories" className="w-full h-32 object-cover object-center" />
-                          <div className="p-4">
-                            <div className="flex items-center gap-2">
-                              <span className="font-bold text-sm text-gray-900">Client stories</span>
-                              <ArrowUpRight className="w-4 h-4 text-gray-900" />
-                            </div>
-                            <div className="text-xs text-gray-500 mt-1">Our clients' successes are our favorite stories</div>
-                          </div>
-                        </button>
-                      </div>
                     </div>
                   </div>
                 )}
               </div>
               
-              {navItems.filter(item => item.name !== 'Pricing' && item.name !== 'ServicesDropdown' && item.name !== 'Blog').map((item) => (
+              {navItems.filter(item => item.name !== 'Pricing' && item.name !== 'Blog').map((item) => (
                 <button
                   key={item.path}
                   onClick={() => {

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import React from 'react';
 
 interface SellerFormData {
   businessName: string;
@@ -11,11 +12,12 @@ interface SellerFormData {
   email: string;
   phone: string;
   address: string;
+  province: string;
   city: string;
-  state: string;
   zipCode: string;
   partnershipType: string;
   partnershipDetails: string;
+  bankProvider: string;
   bankAccountInfo: string;
   businessRegistration: FileList;
   taxDocuments: FileList;
@@ -32,13 +34,14 @@ type FirstPageFields = keyof Pick<SellerFormData,
   'phone' |
   'address' |
   'city' |
-  'state' |
+  'province' |
   'zipCode'
 >;
 
 type SecondPageFields = keyof Pick<SellerFormData,
   'partnershipType' |
   'partnershipDetails' |
+  'bankProvider' |
   'bankAccountInfo'
 >;
 
@@ -47,6 +50,8 @@ export default function SellerRegistrationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [uploadProgress, setUploadProgress] = useState<Record<string, number>>({});
+  const [showIntroModal, setShowIntroModal] = useState(true);
+  const [showPrivacyModal, setShowPrivacyModal] = useState(false);
 
   const onSubmit = async (data: SellerFormData) => {
     setIsSubmitting(true);
@@ -91,7 +96,7 @@ export default function SellerRegistrationForm() {
         'phone',
         'address',
         'city',
-        'state',
+        'province',
         'zipCode'
       ];
       
@@ -104,6 +109,7 @@ export default function SellerRegistrationForm() {
       const secondPageFields: SecondPageFields[] = [
         'partnershipType',
         'partnershipDetails',
+        'bankProvider',
         'bankAccountInfo'
       ];
       
@@ -159,8 +165,108 @@ export default function SellerRegistrationForm() {
 
   return (
     <div className="max-w-7xl mx-auto p-6">
+      {/* Intro Modal */}
+      {showIntroModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 relative animate-fade-in">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <svg className="w-14 h-14 text-blue-500 mx-auto" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="2" fill="#e0f2fe" />
+                  <path d="M16 22h16M16 28h16M24 16v16" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Before we proceed,</h2>
+              <p className="text-gray-600 mb-4">
+                please make sure you have the necessary documents and information ready. This includes your valid government-issued ID, business permit (if applicable), contact details, and product or service information.
+              </p>
+              <p className="text-gray-600 mb-4">
+                By continuing, you acknowledge that all the information you provide is true and accurate. Our team will review your application, and you will be notified via email or SMS regarding the status of your submission.
+              </p>
+              <div className="w-full flex justify-center mt-2">
+                <button
+                  className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                  onClick={() => { setShowIntroModal(false); setShowPrivacyModal(true); }}
+                >
+                  Next
+                </button>
+              </div>
+              <p className="text-xs text-gray-400 mt-4">Click Next to begin your application.</p>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* Privacy Policy Modal */}
+      {showPrivacyModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-8 relative animate-fade-in overflow-y-auto max-h-[90vh]">
+            <div className="flex flex-col items-center text-center">
+              <div className="mb-4">
+                <svg className="w-14 h-14 text-green-500 mx-auto" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="22" stroke="currentColor" strokeWidth="2" fill="#dcfce7" />
+                  <path d="M16 20h16M16 28h16M24 16v16" stroke="#22c55e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">PRIVACY POLICY</h2>
+              <div className="text-gray-700 text-left w-full max-w-2xl mx-auto space-y-3 mb-4 text-sm">
+                <p>At <span className="font-semibold">THUMBWORX</span>, we are committed to protecting the privacy of our personnel and job applicants. This Privacy Policy explains how we collect, use, store, and protect your personal information in compliance with the Data Privacy Act of 2012.</p>
+                <h3 className="font-semibold text-base mt-2">1. Data We Collect</h3>
+                <ul className="list-disc list-inside ml-4">
+                  <li>Full name, address, contact numbers, email</li>
+                  <li>Date of birth, age, gender, height, and weight</li>
+                  <li>Government-issued IDs (driver’s license, SSS, PhilHealth, TIN, etc.)</li>
+                  <li>Work experience, resume, trainings, and certifications</li>
+                  <li>Medical records, especially drug and alcohol test results</li>
+                  <li>Emergency contact and related employment documents</li>
+                </ul>
+                <h3 className="font-semibold text-base mt-2">2. Purpose of Collection</h3>
+                <ul className="list-disc list-inside ml-4">
+                  <li>Manpower profiling and job matching</li>
+                  <li>Employment processing and deployment</li>
+                  <li>Client compliance and verification</li>
+                  <li>Safety, security, and health screening</li>
+                  <li>Coordination with contractors and clients for project requirements</li>
+                </ul>
+                <h3 className="font-semibold text-base mt-2">3. Data Sharing</h3>
+                <ul className="list-disc list-inside ml-4">
+                  <li>Authorized clients and contractors</li>
+                  <li>Project partners or affiliates involved in manpower engagements</li>
+                  <li>Government agencies, if legally required</li>
+                </ul>
+                <p>We only share necessary and job-related information, and always on a need-to-know basis.</p>
+                <h3 className="font-semibold text-base mt-2">4. Data Storage & Protection</h3>
+                <p>All information is stored securely through encrypted systems and/or locked physical files. Access is restricted to authorized personnel only. We implement technical and organizational safeguards to prevent unauthorized access, alteration, or misuse of data.</p>
+                <h3 className="font-semibold text-base mt-2">5. Retention Period</h3>
+                <p>Your data will be retained only for as long as necessary for employment or legal purposes. After that, it will be securely archived or deleted. You may request for deletion of your data after your engagement ends, subject to certain legal conditions.</p>
+                <h3 className="font-semibold text-base mt-2">6. Your Rights</h3>
+                <ul className="list-disc list-inside ml-4">
+                  <li>Access your personal data</li>
+                  <li>Correct or update inaccurate information</li>
+                  <li>Withdraw your consent at any time</li>
+                  <li>Request deletion of your records (subject to legal review)</li>
+                </ul>
+                <h3 className="font-semibold text-base mt-2">7. How to Contact Us</h3>
+                <div className="ml-4">
+                  <div><span className="font-semibold">THUMBWORX Data Privacy Office</span></div>
+                  <div>Email: <a href="mailto:admin@innovatasolutions.com" className="text-blue-600 underline">admin@innovatasolutions.com</a></div>
+                  <div>Mobile: <a href="tel:+639618330336" className="text-blue-600 underline">+63 961 833 0336</a></div>
+                  <div>Address: Innovata Office, Bagong Bayan, City of Malolos, Bulacan, Philippines 3000</div>
+                </div>
+              </div>
+              <div className="w-full flex justify-center mt-2">
+                <button
+                  className="px-6 py-2 bg-gradient-to-r from-green-500 to-blue-500 text-white font-semibold rounded-lg shadow hover:from-green-600 hover:to-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-green-400"
+                  onClick={() => setShowPrivacyModal(false)}
+                >
+                  I Agree
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 text-center">Seller Registration Form</h2>
+        <h2 className="text-3xl font-bold text-gray-800 text-center">Seller Form</h2>
         <div className="mt-4 flex items-center justify-center">
           <div className="flex items-center">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
@@ -204,7 +310,7 @@ export default function SellerRegistrationForm() {
                   <input
                     id="businessName"
                     type="text"
-                    placeholder="e.g. Acme Corp."
+                    placeholder="e.g. [Your Company Name] Corp./Inc./LLC"
                     {...register('businessName', { required: 'Business name is required' })}
                     className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.businessName ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
                   />
@@ -242,7 +348,7 @@ export default function SellerRegistrationForm() {
                   <input
                     id="taxId"
                     type="text"
-                    placeholder="e.g. 12-3456789"
+                    placeholder="e.g. 123-456-789-123"
                     pattern="[0-9\-]+"
                     onKeyDown={(e) => {
                       if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
@@ -265,7 +371,7 @@ export default function SellerRegistrationForm() {
                   <input
                     id="contactPerson"
                     type="text"
-                    placeholder="e.g. John Doe"
+                    placeholder="e.g. Juan Dela Cruz"
                     {...register('contactPerson', { required: 'Contact person is required' })}
                     className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.contactPerson ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
                   />
@@ -285,7 +391,7 @@ export default function SellerRegistrationForm() {
                   <input
                     id="email"
                     type="email"
-                    placeholder="e.g. john@acmecorp.com"
+                    placeholder="e.g. [youremail]@[yourcompany].com"
                     {...register('email', { 
                       required: 'Email is required',
                       pattern: {
@@ -305,7 +411,7 @@ export default function SellerRegistrationForm() {
                   <input
                     id="phone"
                     type="tel"
-                    placeholder="e.g. (555) 123-4567"
+                    placeholder="e.g. (+63) 934-1236-567"
                     pattern="[\d\s\(\)\-\+]+"
                     onKeyDown={(e) => {
                       if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
@@ -328,70 +434,72 @@ export default function SellerRegistrationForm() {
 
             <div className="space-y-4 bg-white rounded-lg shadow p-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Address Information</h3>
-              <div>
-                <label className="block text-sm font-medium text-gray-700" htmlFor="address">Street Address</label>
-                <input
-                  id="address"
-                  type="text"
-                  placeholder="e.g. 123 Main St."
-                  {...register('address', { required: 'Address is required' })}
-                  className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.address ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
-                />
-                <p className="text-xs text-gray-400 mt-1">Business physical address.</p>
-                {errors.address && (
-                  <p className="mt-1 text-sm text-red-600">{errors.address.message}</p>
-                )}
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="city">City</label>
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="address">Street Address</label>
                   <input
-                    id="city"
+                    id="address"
                     type="text"
-                    placeholder="e.g. New York"
-                    {...register('city', { required: 'City is required' })}
-                    className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.city ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
+                    placeholder="e.g. 123 Main St."
+                    {...register('address', { required: 'Address is required' })}
+                    className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.address ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
                   />
-                  <p className="text-xs text-gray-400 mt-1">City where your business is located.</p>
-                  {errors.city && (
-                    <p className="mt-1 text-sm text-red-600">{errors.city.message}</p>
+                  <p className="text-xs text-gray-400 mt-1">Business physical address.</p>
+                  {errors.address && (
+                    <p className="mt-1 text-sm text-red-600">{errors.address.message}</p>
                   )}
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="state">State</label>
-                  <input
-                    id="state"
-                    type="text"
-                    placeholder="e.g. NY"
-                    {...register('state', { required: 'State is required' })}
-                    className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.state ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
-                  />
-                  <p className="text-xs text-gray-400 mt-1">State or province.</p>
-                  {errors.state && (
-                    <p className="mt-1 text-sm text-red-600">{errors.state.message}</p>
-                  )}
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="zipCode">ZIP Code</label>
-                  <input
-                    id="zipCode"
-                    type="text"
-                    placeholder="e.g. 10001"
-                    pattern="[0-9]+"
-                    onKeyDown={(e) => {
-                      if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
-                          (e.keyCode >= 48 && e.keyCode <= 57)) {
-                        return;
-                      }
-                      e.preventDefault();
-                    }}
-                    {...register('zipCode', { required: 'ZIP code is required' })}
-                    className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.zipCode ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
-                  />
-                  <p className="text-xs text-gray-400 mt-1">Postal or ZIP code.</p>
-                  {errors.zipCode && (
-                    <p className="mt-1 text-sm text-red-600">{errors.zipCode.message}</p>
-                  )}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="city">City</label>
+                    <input
+                      id="city"
+                      type="text"
+                      placeholder="e.g. New York"
+                      {...register('city', { required: 'City is required' })}
+                      className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.city ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
+                    />
+                    <p className="text-xs text-gray-400 mt-1">City where your business is located.</p>
+                    {errors.city && (
+                      <p className="mt-1 text-sm text-red-600">{errors.city.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="province">Province</label>
+                    <input
+                      id="province"
+                      type="text"
+                      placeholder="e.g. Laguna"
+                      {...register('province', { required: 'Province is required' })}
+                      className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.province ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
+                    />
+                    <p className="text-xs text-gray-400 mt-1">Province where your business is located.</p>
+                    {errors.province && (
+                      <p className="mt-1 text-sm text-red-600">{errors.province.message}</p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="zipCode">ZIP Code</label>
+                    <input
+                      id="zipCode"
+                      type="text"
+                      placeholder="e.g. 10001"
+                      pattern="[0-9]+"
+                      onKeyDown={(e) => {
+                        if ([8, 9, 27, 13, 46, 37, 39].includes(e.keyCode) ||
+                            (e.keyCode >= 48 && e.keyCode <= 57)) {
+                          return;
+                        }
+                        e.preventDefault();
+                      }}
+                      {...register('zipCode', { required: 'ZIP code is required' })}
+                      className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.zipCode ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900`}
+                    />
+                    <p className="text-xs text-gray-400 mt-1">Postal or ZIP code.</p>
+                    {errors.zipCode && (
+                      <p className="mt-1 text-sm text-red-600">{errors.zipCode.message}</p>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
@@ -450,6 +558,38 @@ export default function SellerRegistrationForm() {
 
             <div className="space-y-4 bg-white rounded-lg shadow p-6 border border-gray-100">
               <h3 className="text-lg font-semibold text-gray-700 mb-2">Bank Account Information</h3>
+              <div>
+                <label className="block text-sm font-medium text-gray-700" htmlFor="bankProvider">Bank or E-Wallet Provider</label>
+                <select
+                  id="bankProvider"
+                  {...register('bankProvider', { required: 'Bank or E-Wallet provider is required' })}
+                  className={`mt-1 block w-full px-3 py-2 bg-white rounded-md border ${errors.bankProvider ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none text-gray-900`}
+                >
+                  <option value="">Select provider</option>
+                  <option value="Maya Bank">Maya Bank</option>
+                  <option value="Tonik Digital Bank">Tonik Digital Bank</option>
+                  <option value="UNO Digital Bank">UNO Digital Bank</option>
+                  <option value="SeaBank Philippines">SeaBank Philippines</option>
+                  <option value="UnionDigital Bank">UnionDigital Bank</option>
+                  <option value="GoTyme Bank">GoTyme Bank</option>
+                  <option value="Overseas Filipino Bank (OFBank)">Overseas Filipino Bank (OFBank)</option>
+                  <option value="CIMB Bank Philippines">CIMB Bank Philippines</option>
+                  <option value="GCash">GCash</option>
+                  <option value="Maya (e-wallet version of Maya Bank)">Maya (e-wallet version of Maya Bank)</option>
+                  <option value="ShopeePay">ShopeePay</option>
+                  <option value="GrabPay">GrabPay</option>
+                  <option value="Coins.ph">Coins.ph</option>
+                  <option value="JuanCash">JuanCash</option>
+                  <option value="Bayad">Bayad</option>
+                  <option value="PalawanPay">PalawanPay</option>
+                  <option value="TayoCash">TayoCash</option>
+                  <option value="ML Wallet (by M Lhuillier)">ML Wallet (by M Lhuillier)</option>
+                </select>
+                <p className="text-xs text-gray-400 mt-1">Choose your bank or e-wallet provider.</p>
+                {errors.bankProvider && (
+                  <p className="mt-1 text-sm text-red-600">{errors.bankProvider.message}</p>
+                )}
+              </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700" htmlFor="bankAccountInfo">Bank Account Details</label>
                 <textarea

@@ -55,7 +55,7 @@ export default function HeroSection() {
 
   return (
     <Tooltip.Provider>
-      <section className="min-h-screen flex flex-col justify-center pt-24 pb-16 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden">
+      <section id="hero" className="min-h-screen flex flex-col justify-center pt-24 pb-16 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-full opacity-10 blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full opacity-10 blur-3xl"></div>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CheckCircle, XCircle, Users, BarChart2, Zap, Star, UserPlus, Layers, TrendingUp, Headset, Shield, ShoppingCart, Package, Link2, CreditCard, Smartphone, Wrench, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Footer from '@/components/landingpage/Footer';
+import { useSearchParams } from 'next/navigation';
 
 const categories = [
   { label: 'Store Management', icon: ShoppingCart },
@@ -488,6 +489,7 @@ const featuresByCategory: { [key: string]: any[] } = {
 };
 
 const PricingPage = () => {
+  const searchParams = useSearchParams();
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
   const [selectedCategory, setSelectedCategory] = useState(categories[0].label);
   const [isDragging, setIsDragging] = useState(false);
@@ -496,6 +498,17 @@ const PricingPage = () => {
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
   const categoriesRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const category = searchParams.get('category');
+    if (category === 'mobile-app-access') {
+      setSelectedCategory('Mobile Access');
+    } else if (category === 'add-ons-extras') {
+      setSelectedCategory('Add-ons & Extras');
+    } else if (category === 'payments-billing') {
+      setSelectedCategory('Payments & Billing');
+    }
+  }, [searchParams]);
 
   const plans = plansByCategory[selectedCategory] || [];
   const featuresTable = featuresByCategory[selectedCategory] || [];

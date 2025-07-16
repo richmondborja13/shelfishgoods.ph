@@ -74,7 +74,7 @@ export default function LoginPage() {
                   type={showPassword ? "text" : "password"}
                   required
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 pr-10 text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                 />
                 <button
                   type="button"

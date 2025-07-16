@@ -1,24 +1,66 @@
 'use client';
 
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { useState } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import * as Label from '@radix-ui/react-label';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from '@/components/ui/tooltip';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import * as Checkbox from '@radix-ui/react-checkbox';
 import * as Separator from '@radix-ui/react-separator';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 export default function SellerRegistration() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+
+  // Form state
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [termsChecked, setTermsChecked] = useState(false);
+
+  // Error state
+  const [errors, setErrors] = useState({
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    terms: "",
+  });
+
+  const validate = () => {
+    const newErrors: typeof errors = {
+      username: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      terms: "",
+    };
+    if (!username.trim()) newErrors.username = "Username is required.";
+    if (!email.trim()) newErrors.email = "Email is required.";
+    else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) newErrors.email = "Invalid email address.";
+    if (!password) newErrors.password = "Password is required.";
+    if (!confirmPassword) newErrors.confirmPassword = "Please confirm your password.";
+    if (password && confirmPassword && password !== confirmPassword) newErrors.confirmPassword = "Passwords do not match.";
+    if (!termsChecked) newErrors.terms = "You must agree to the Terms and Conditions.";
+    setErrors(newErrors);
+    // Return true if no errors
+    return Object.values(newErrors).every((v) => v === "");
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) {
+      router.push('/user/proceeding');
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 md:my-0">
@@ -61,14 +103,34 @@ export default function SellerRegistration() {
         </div>
         <h3 className="text-2xl font-bold text-gray-900 mb-2">Create your account</h3>
         <p className="text-gray-500 mb-6">Start your journey as a vendor. It's fast and easy!</p>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit} noValidate>
           <div>
             <Label.Root htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username</Label.Root>
-            <input id="username" name="username" type="text" required className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black" placeholder="Your username" />
+            <input
+              id="username"
+              name="username"
+              type="text"
+              className={`w-full rounded-lg border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black ${errors.username ? 'border-red-500' : 'border-gray-300'}`}
+              placeholder="Your username"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+              autoComplete="username"
+            />
+            {errors.username && <p className="text-xs text-red-600 mt-1">{errors.username}</p>}
           </div>
           <div>
             <Label.Root htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">Email address</Label.Root>
-            <input id="email" name="email" type="email" required className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black" placeholder="you@email.com" />
+            <input
+              id="email"
+              name="email"
+              type="email"
+              className={`w-full rounded-lg border px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+              placeholder="you@email.com"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoComplete="email"
+            />
+            {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
           </div>
           <div>
             <Label.Root htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</Label.Root>
@@ -77,9 +139,11 @@ export default function SellerRegistration() {
                 id="password"
                 name="password"
                 type={showPassword ? "text" : "password"}
-                required
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black"
-                placeholder="••••••••"
+                className={`w-full rounded-lg border px-4 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
+                placeholder="Enter your password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                autoComplete="new-password"
               />
               <button
                 type="button"
@@ -91,6 +155,7 @@ export default function SellerRegistration() {
                 <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} className="h-4 w-4" />
               </button>
             </div>
+            {errors.password && <p className="text-xs text-red-600 mt-1">{errors.password}</p>}
           </div>
           <div className="mb-2">
             <Label.Root htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</Label.Root>
@@ -99,9 +164,11 @@ export default function SellerRegistration() {
                 id="confirmPassword"
                 name="confirmPassword"
                 type={showConfirmPassword ? "text" : "password"}
-                required
-                className="w-full rounded-lg border border-gray-300 px-4 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black"
-                placeholder="••••••••"
+                className={`w-full rounded-lg border px-4 py-2 pr-10 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-black ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300'}`}
+                placeholder="Confirm your password"
+                value={confirmPassword}
+                onChange={e => setConfirmPassword(e.target.value)}
+                autoComplete="new-password"
               />
               <button
                 type="button"
@@ -113,9 +180,15 @@ export default function SellerRegistration() {
                 <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} className="h-4 w-4" />
               </button>
             </div>
+            {errors.confirmPassword && <p className="text-xs text-red-600 mt-1">{errors.confirmPassword}</p>}
           </div>
           <div className="flex items-center gap-2 mb-4">
-            <Checkbox.Root id="terms" className="w-4 h-4 rounded border border-gray-300 bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500 flex items-center justify-center focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" required>
+            <Checkbox.Root
+              id="terms"
+              className="w-4 h-4 rounded border bg-white data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500 flex items-center justify-center focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+              checked={termsChecked}
+              onCheckedChange={checked => setTermsChecked(!!checked)}
+            >
               <Checkbox.Indicator className="text-white">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8l2.5 2.5L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Checkbox.Indicator>
