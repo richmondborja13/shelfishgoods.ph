@@ -1,4 +1,3 @@
-"use client";
 import { Suspense } from 'react';
 import ScrollHandler from '@/components/ScrollHandler';
 import Navigation from '@/components/landingpage/Navigation';
