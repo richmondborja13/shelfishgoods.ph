@@ -304,7 +304,13 @@ const Navigation = () => {
               {navItems.filter(item => item.name !== 'Pricing' && item.name !== 'ServicesDropdown' && item.name !== 'Blog').map((item) => (
                 <button
                   key={item.path}
-                  onClick={() => scrollToSection(item.path)}
+                  onClick={() => {
+                    if (item.name === 'Contact') {
+                      router.push('/?scrollTo=contact');
+                    } else {
+                      scrollToSection(item.path);
+                    }
+                  }}
                   className="text-gray-700 hover:text-blue-600 px-4 py-2 text-base font-oswald font-medium transition-all duration-200 cursor-pointer rounded-lg hover:bg-gray-50"
                 >
                   {item.name.replace('Dropdown', '')}
@@ -345,7 +351,11 @@ const Navigation = () => {
               <button
                 key={item.path}
                 onClick={() => {
-                  scrollToSection(item.path);
+                  if (item.name === 'Contact') {
+                    router.push('/?scrollTo=contact');
+                  } else {
+                    scrollToSection(item.path);
+                  }
                   setIsOpen(false);
                 }}
                 className="text-gray-700 hover:bg-gray-50 hover:text-blue-600 block px-4 py-3 rounded-lg text-lg font-oswald font-medium transition-all duration-200 w-full text-left"

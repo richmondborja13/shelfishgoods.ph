@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { CheckCircle, XCircle, Users, BarChart2, Zap, Star, UserPlus, Layers, TrendingUp, Headset, Shield, ShoppingCart, Package, Link2, CreditCard, Smartphone, Wrench } from 'lucide-react';
+import { CheckCircle, XCircle, Users, BarChart2, Zap, Star, UserPlus, Layers, TrendingUp, Headset, Shield, ShoppingCart, Package, Link2, CreditCard, Smartphone, Wrench, ArrowLeft, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import Footer from '@/components/landingpage/Footer';
 
 const categories = [
   { label: 'Store Management', icon: ShoppingCart },
@@ -489,6 +490,12 @@ const featuresByCategory: { [key: string]: any[] } = {
 const PricingPage = () => {
   const [billing, setBilling] = useState<'monthly' | 'yearly'>('monthly');
   const [selectedCategory, setSelectedCategory] = useState(categories[0].label);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+  const categoriesRef = React.useRef<HTMLDivElement>(null);
 
   const plans = plansByCategory[selectedCategory] || [];
   const featuresTable = featuresByCategory[selectedCategory] || [];
@@ -509,43 +516,87 @@ const PricingPage = () => {
             className={`px-5 py-2 rounded-full font-semibold transition-all text-sm flex items-center gap-2 ${billing === 'yearly' ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white shadow' : 'text-gray-700 hover:bg-gray-100'}`}
             onClick={() => setBilling('yearly')}
           >
-            Yearly <span className="ml-1 text-xs font-bold bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full">Save 20%</span>
+            Yearly <span className="ml-1 text-xs font-bold bg-cyan-100 text-cyan-700 px-2 py-0.5 rounded-full">Save 15%</span>
           </button>
         </div>
       </section>
 
-      <div className="w-full flex flex-col items-center mb-10 gap-3">
-        <div className="flex gap-4 justify-center px-4 pb-1">
-          {categoriesTop.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <button
-                key={cat.label}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-base whitespace-nowrap shadow-sm border transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 ${selectedCategory === cat.label ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-blue-400' : 'bg-blue-50 hover:bg-cyan-100 text-gray-900 border-blue-100'}`}
-                onClick={() => setSelectedCategory(cat.label)}
-                type="button"
-              >
-                <Icon className="w-5 h-5" />
-                {cat.label}
-              </button>
-            );
-          })}
-        </div>
-        <div className="flex gap-4 justify-center px-4 pt-1">
-          {categoriesBottom.map((cat) => {
-            const Icon = cat.icon;
-            return (
-              <button
-                key={cat.label}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-base whitespace-nowrap shadow-sm border transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 ${selectedCategory === cat.label ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-blue-400' : 'bg-blue-50 hover:bg-cyan-100 text-gray-900 border-blue-100'}`}
-                onClick={() => setSelectedCategory(cat.label)}
-                type="button"
-              >
-                <Icon className="w-5 h-5" />
-                {cat.label}
-              </button>
-            );
-          })}
+      <div className="w-full flex flex-col items-center mb-16 gap-3">
+        <div className="relative w-full max-w-6xl">
+          {/* Left Arrow Indicator */}
+          {showLeftArrow && (
+            <div className="absolute left-[-32px] top-1/2 -translate-y-1/2 -translate-x-full z-20 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-lg border border-gray-200">
+              <ArrowLeft className="w-5 h-5 text-gray-600" />
+            </div>
+          )}
+          {/* Right Arrow Indicator */}
+          {showRightArrow && (
+            <div className="absolute right-[-32px] top-1/2 -translate-y-1/2 translate-x-full z-20 bg-white/80 backdrop-blur-sm rounded-full p-2 shadow-lg border border-gray-200">
+              <ArrowRight className="w-5 h-5 text-gray-600" />
+            </div>
+          )}
+          
+          <div
+            ref={categoriesRef}
+            className="flex gap-4 px-4 pb-1 overflow-x-auto whitespace-nowrap cursor-grab active:cursor-grabbing select-none max-w-6xl [&::-webkit-scrollbar]:hidden"
+            style={{ 
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none'
+            }}
+            onMouseDown={e => {
+              setIsDragging(true);
+              setStartX(e.pageX - (categoriesRef.current?.offsetLeft || 0));
+              setScrollLeft(categoriesRef.current?.scrollLeft || 0);
+            }}
+            onMouseLeave={() => setIsDragging(false)}
+            onMouseUp={() => setIsDragging(false)}
+            onMouseMove={e => {
+              if (!isDragging) return;
+              e.preventDefault();
+              if (categoriesRef.current) {
+                const x = e.pageX - (categoriesRef.current.offsetLeft || 0);
+                const walk = (x - startX) * 1.5; // scroll-fast
+                categoriesRef.current.scrollLeft = scrollLeft - walk;
+              }
+            }}
+            onTouchStart={e => {
+              setIsDragging(true);
+              setStartX(e.touches[0].pageX - (categoriesRef.current?.offsetLeft || 0));
+              setScrollLeft(categoriesRef.current?.scrollLeft || 0);
+            }}
+            onTouchEnd={() => setIsDragging(false)}
+            onTouchMove={e => {
+              if (!isDragging) return;
+              if (categoriesRef.current) {
+                const x = e.touches[0].pageX - (categoriesRef.current.offsetLeft || 0);
+                const walk = (x - startX) * 1.5;
+                categoriesRef.current.scrollLeft = scrollLeft - walk;
+              }
+            }}
+            onScroll={() => {
+              if (categoriesRef.current) {
+                const { scrollLeft, scrollWidth, clientWidth } = categoriesRef.current;
+                setShowLeftArrow(scrollLeft > 0);
+                setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 1);
+              }
+            }}
+          >
+            {categories.map((cat) => {
+              const Icon = cat.icon;
+              return (
+                <button
+                  key={cat.label}
+                  className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-base whitespace-nowrap shadow-sm border transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 ${selectedCategory === cat.label ? 'bg-gradient-to-r from-blue-600 to-cyan-600 text-white border-blue-400' : 'bg-blue-50 hover:bg-cyan-100 text-gray-900 border-blue-100'}`}
+                  onClick={() => setSelectedCategory(cat.label)}
+                  type="button"
+                >
+                  <Icon className="w-5 h-5" />
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
       </div>
 
@@ -666,6 +717,7 @@ const PricingPage = () => {
           </Link>
         </div>
       </section>
+      <Footer />
     </div>
   );
 };

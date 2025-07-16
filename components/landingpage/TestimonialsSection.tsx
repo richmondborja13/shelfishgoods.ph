@@ -104,7 +104,7 @@ export default function TestimonialsSection() {
         setCurrent((prev) => (prev + cardsPerView) % testimonials.length);
         setAnimating(false);
       }, 400);
-    }, 7000);
+    }, 20000); // 20 seconds
     return () => clearInterval(interval);
   }, [cardsPerView, mounted, testimonials.length]);
 
@@ -147,9 +147,9 @@ export default function TestimonialsSection() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
               Trusted by
-              <span className="block bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent leading-tight">
                 Industry Leaders
               </span>
             </h2>
@@ -267,7 +267,7 @@ export default function TestimonialsSection() {
                 className="px-8 py-4 text-lg font-semibold bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 text-white"
                 type="button"
               >
-                Read more client stories.
+                Read more client stories
               </button>
             </div>
           </div>

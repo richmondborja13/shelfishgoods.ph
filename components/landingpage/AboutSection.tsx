@@ -92,15 +92,12 @@ export default function AboutSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <div className="relative h-96 rounded-2xl overflow-hidden bg-gradient-to-br from-blue-50 to-cyan-50 border border-gray-200">
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <span className="text-white text-2xl font-bold">SG</span>
-                  </div>
-                  <p className="text-gray-500 font-medium">Our Team at Work</p>
-                </div>
-              </div>
+            <div className="relative h-96 rounded-2xl overflow-hidden bg-gray-100 border border-gray-200">
+              <img 
+                src="/images/team.png" 
+                alt="Our team at work" 
+                className="w-full h-full object-cover"
+              />
             </div>
           </motion.div>
           
