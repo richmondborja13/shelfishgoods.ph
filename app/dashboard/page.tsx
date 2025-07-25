@@ -2,7 +2,6 @@
 
 import DashboardStats from '@/components/dashboard/DashboardStats';
 import Sidebar from '@/components/dashboard/Sidebar';
-import AdminShortcuts from '@/components/dashboard/AdminShortcuts';
 
 export default function DashboardPage() {
   return (
@@ -11,7 +10,6 @@ export default function DashboardPage() {
       <main className="flex-1 p-8">
         <h1 className="text-3xl font-bold mb-8 text-gray-800">Dashboard</h1>
         <DashboardStats />
-        <AdminShortcuts />
       </main>
     </div>
   );

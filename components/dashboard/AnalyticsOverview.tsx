@@ -1,18 +1,98 @@
 /**
- * AnalyticsOverview Component
- *
- * Front-end Guidelines:
- * - Shows analytics for best selling times, top days, product uploads, sales trends, and revenue by category.
- * - Uses Chart.js for visualizations and FontAwesome for icons.
- * - UI/UX: Data is grouped by relevance and visualized for quick insights.
- *
- * Back-end Follow-through:
- * - Replace mock data with API calls for real analytics.
- * - Ensure endpoints provide time-based and category-based analytics.
- * - Handle loading, error, and empty states for all analytics sections.
+ * AnalyticsOverview Component - Business Intelligence Dashboard
+ * 
+ * FRONT-END GUIDELINES:
+ * ====================
+ * 
+ * 1. COMPONENT STRUCTURE:
+ *    - Client-side component with React hooks and Chart.js integration
+ *    - Modular analytics sections with dedicated chart components
+ *    - Responsive grid layout for multiple analytics views
+ *    - Interactive data visualization with multiple chart types
+ * 
+ * 2. STATE MANAGEMENT:
+ *    - useState for analytics data and loading states
+ *    - useEffect for data fetching and chart updates
+ *    - Local state for interactive chart features and filters
+ * 
+ * 3. UI/UX PATTERNS:
+ *    - Card-based analytics layout
+ *    - Multiple chart types (Line, Bar, Doughnut)
+ *    - Time-based data filtering
+ *    - Interactive tooltips and legends
+ *    - Responsive chart sizing and layout
+ * 
+ * 4. DATA VISUALIZATION:
+ *    - Chart.js integration for complex analytics
+ *    - Real-time data updates and filtering
+ *    - Custom chart configurations and styling
+ *    - Performance optimization for large datasets
+ * 
+ * 5. ACCESSIBILITY:
+ *    - ARIA labels for all chart components
+ *    - Screen reader friendly data presentation
+ *    - Keyboard navigation for interactive elements
+ *    - High contrast color schemes for data visualization
+ * 
+ * 6. PERFORMANCE:
+ *    - Lazy loading for chart components
+ *    - Efficient data processing and rendering
+ *    - Memory management for large datasets
+ *    - Chart.js optimization techniques
+ * 
+ * BACK-END INTEGRATION POINTS:
+ * ===========================
+ * 
+ * 1. API ENDPOINTS NEEDED:
+ *    - GET /api/analytics/peak-hours - Fetch best selling times data
+ *    - GET /api/analytics/top-days - Fetch top performing days
+ *    - GET /api/analytics/product-uploads - Fetch product upload trends
+ *    - GET /api/analytics/sales-trends - Fetch sales trend data
+ *    - GET /api/analytics/revenue-categories - Fetch revenue by category
+ *    - GET /api/analytics/time-filters - Fetch available time periods
+ * 
+ * 2. DATA STRUCTURES:
+ *    - Peak Hours: [{ hour, orders, percentage }]
+ *    - Top Days: [{ day, orders, trend }]
+ *    - Upload Trends: { labels: [], datasets: [{ data: [] }] }
+ *    - Sales Trends: { labels: [], datasets: [{ data: [] }] }
+ *    - Revenue Categories: { labels: [], datasets: [{ data: [] }] }
+ * 
+ * 3. REAL-TIME ANALYTICS:
+ *    - WebSocket integration for live updates
+ *    - Real-time data aggregation
+ *    - Live chart updates and notifications
+ *    - Performance monitoring and alerts
+ * 
+ * 4. DATA PROCESSING:
+ *    - Server-side data aggregation
+ *    - Time-series data processing
+ *    - Statistical calculations and trends
+ *    - Data caching and optimization
+ * 
+ * 5. FILTERING AND SEGMENTATION:
+ *    - Time period filtering (daily, weekly, monthly, yearly)
+ *    - Category-based filtering
+ *    - Geographic segmentation
+ *    - Customer segment analysis
+ * 
+ * TODO FOR BACK-END DEVELOPMENT:
+ * =============================
+ * 
+ * 1. Implement analytics data aggregation API
+ * 2. Create time-series data processing pipeline
+ * 3. Set up real-time analytics streaming
+ * 4. Implement data caching and optimization
+ * 5. Add analytics data validation and sanitization
+ * 6. Set up performance monitoring and alerting
+ * 7. Implement analytics export functionality
+ * 8. Add custom analytics query builder
+ * 9. Set up analytics data backup and recovery
+ * 10. Implement analytics user permissions and access control
  */
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faClock, 
@@ -202,6 +282,23 @@ const doughnutOptions = {
 };
 
 export default function AnalyticsOverview() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-50" style={{ left: '16rem' }}>
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <span className="text-lg font-semibold text-blue-700">Loading Analytics...</span>
+        </div>
+      </div>
+    );
+  }
+
   const totalProducts = 123;
   const thisMonth = 30;
   const lastMonth = 22;

@@ -1,16 +1,84 @@
 /**
- * Sidebar Component
- *
- * Front-end Guidelines:
- * - Provides navigation for dashboard sections (Home, Products, Reports, Settings).
- * - Responsive: can be collapsed/expanded for more screen space.
- * - Uses FontAwesome icons and Next.js navigation.
- * - UI/UX: Highlights active route, groups links by category, and shows logo.
- *
- * Back-end Follow-through:
- * - If navigation items are dynamic, fetch from API or config.
- * - Ensure route permissions and access control are enforced on the back-end.
- * - Integrate with user roles if needed for conditional rendering.
+ * Sidebar Component - Dashboard Navigation Interface
+ * 
+ * FRONT-END GUIDELINES:
+ * ====================
+ * 
+ * 1. COMPONENT STRUCTURE:
+ *    - Client-side component with React hooks
+ *    - Responsive design with collapsible functionality
+ *    - Uses FontAwesome icons for consistent iconography
+ *    - Next.js navigation integration with usePathname
+ * 
+ * 2. STATE MANAGEMENT:
+ *    - useState for sidebar collapse/expand state
+ *    - usePathname for active route detection
+ *    - Local state for responsive behavior
+ * 
+ * 3. UI/UX PATTERNS:
+ *    - Collapsible sidebar with smooth transitions
+ *    - Active route highlighting
+ *    - Categorized navigation groups
+ *    - Responsive breakpoint handling
+ *    - Logo and branding integration
+ * 
+ * 4. ACCESSIBILITY:
+ *    - Proper ARIA labels for navigation
+ *    - Keyboard navigation support
+ *    - Screen reader friendly structure
+ *    - Focus management for collapsible elements
+ * 
+ * 5. RESPONSIVE DESIGN:
+ *    - Mobile-first approach
+ *    - Collapsible on smaller screens
+ *    - Maintains functionality across devices
+ * 
+ * 6. NAVIGATION STRUCTURE:
+ *    - Categorized navigation items
+ *    - Dynamic active state detection
+ *    - Consistent icon usage
+ * 
+ * BACK-END INTEGRATION POINTS:
+ * ===========================
+ * 
+ * 1. API ENDPOINTS NEEDED:
+ *    - GET /api/user/permissions - Fetch user navigation permissions
+ *    - GET /api/navigation/menu - Fetch dynamic navigation structure
+ *    - GET /api/user/profile - Fetch user info for sidebar display
+ * 
+ * 2. DATA STRUCTURES:
+ *    - Navigation Menu: [{ category, items: [{ href, label, icon, permissions }] }]
+ *    - User Permissions: { canViewProducts, canViewReports, canViewSettings }
+ *    - User Profile: { name, role, avatar, company }
+ * 
+ * 3. AUTHENTICATION:
+ *    - Route-level permission checking
+ *    - Role-based navigation filtering
+ *    - Session validation for protected routes
+ * 
+ * 4. DYNAMIC CONTENT:
+ *    - User-specific navigation items
+ *    - Role-based menu filtering
+ *    - Company-specific branding
+ * 
+ * 5. ERROR HANDLING:
+ *    - Navigation permission errors
+ *    - Route access denied handling
+ *    - Fallback navigation structure
+ * 
+ * TODO FOR BACK-END DEVELOPMENT:
+ * =============================
+ * 
+ * 1. Implement user permission system
+ * 2. Create dynamic navigation API
+ * 3. Add role-based access control
+ * 4. Set up route protection middleware
+ * 5. Implement user profile integration
+ * 6. Add navigation analytics tracking
+ * 7. Set up company branding API
+ * 8. Implement navigation caching
+ * 9. Add navigation audit logging
+ * 10. Set up real-time permission updates
  */
 'use client';
 
@@ -88,7 +156,7 @@ const navLinks = [
     category: 'Settings',
     items: [
       {
-        href: '/dashboard/settings',
+        href: '/user/settings',
         label: 'Settings',
         icon: <FontAwesomeIcon icon={faCog} className="w-5 h-5" />,
       },

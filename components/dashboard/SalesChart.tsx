@@ -1,20 +1,98 @@
 /**
- * SalesChart Component
- *
- * Front-end Guidelines:
- * - Visualizes sales data over different time ranges (Today, Week, Month, Year).
- * - Uses Chart.js for graphs and FontAwesome for icons.
- * - Displays top selling products, sales by category, and recent orders.
- * - UI/UX: Interactive, filterable, and visually clear.
- *
- * Back-end Follow-through:
- * - Replace mock data with API calls for real sales, products, and orders.
- * - Ensure endpoints provide data in the expected format for charts and tables.
- * - Handle loading, error, and empty states for all data sections.
+ * SalesChart Component - Sales Analytics and Reporting
+ * 
+ * FRONT-END GUIDELINES:
+ * ====================
+ * 
+ * 1. COMPONENT STRUCTURE:
+ *    - Client-side component with React hooks and Chart.js integration
+ *    - Modular sales analytics with multiple chart types
+ *    - Interactive time range filtering system
+ *    - Responsive layout for sales data visualization
+ * 
+ * 2. STATE MANAGEMENT:
+ *    - useState for sales data and time range selection
+ *    - useEffect for data fetching and chart updates
+ *    - Local state for interactive filtering and sorting
+ * 
+ * 3. UI/UX PATTERNS:
+ *    - Time range selector (Today, Week, Month, Year)
+ *    - Multiple chart types (Line, Bar, Doughnut)
+ *    - Top selling products table with sorting
+ *    - Sales by category visualization
+ *    - Recent orders tracking
+ * 
+ * 4. DATA VISUALIZATION:
+ *    - Chart.js integration for sales analytics
+ *    - Real-time data updates based on time filters
+ *    - Interactive tooltips and legends
+ *    - Performance optimization for large datasets
+ * 
+ * 5. ACCESSIBILITY:
+ *    - ARIA labels for all chart and table components
+ *    - Screen reader friendly data presentation
+ *    - Keyboard navigation for interactive elements
+ *    - High contrast color schemes for data visualization
+ * 
+ * 6. PERFORMANCE:
+ *    - Efficient data processing for different time ranges
+ *    - Lazy loading for chart components
+ *    - Memory management for large sales datasets
+ *    - Chart.js optimization techniques
+ * 
+ * BACK-END INTEGRATION POINTS:
+ * ===========================
+ * 
+ * 1. API ENDPOINTS NEEDED:
+ *    - GET /api/sales/overview - Fetch sales overview data
+ *    - GET /api/sales/time-range - Fetch sales data by time range
+ *    - GET /api/sales/top-products - Fetch top selling products
+ *    - GET /api/sales/by-category - Fetch sales by category
+ *    - GET /api/sales/recent-orders - Fetch recent orders
+ *    - GET /api/sales/trends - Fetch sales trends and growth
+ * 
+ * 2. DATA STRUCTURES:
+ *    - Sales Overview: { totalSales, totalOrders, averageOrder, growth }
+ *    - Time Range Data: { labels: [], values: [], period }
+ *    - Top Products: [{ id, name, sales, revenue, growth, category }]
+ *    - Category Sales: { labels: [], datasets: [{ data: [] }] }
+ *    - Recent Orders: [{ id, customer, amount, status, date }]
+ * 
+ * 3. REAL-TIME SALES DATA:
+ *    - WebSocket integration for live sales updates
+ *    - Real-time order tracking and notifications
+ *    - Live sales performance monitoring
+ *    - Instant revenue calculations
+ * 
+ * 4. DATA PROCESSING:
+ *    - Server-side sales data aggregation
+ *    - Time-series data processing for different periods
+ *    - Revenue calculations and growth analysis
+ *    - Product performance ranking algorithms
+ * 
+ * 5. FILTERING AND SEGMENTATION:
+ *    - Time period filtering (Today, Week, Month, Year)
+ *    - Product category filtering
+ *    - Geographic sales segmentation
+ *    - Customer segment analysis
+ * 
+ * TODO FOR BACK-END DEVELOPMENT:
+ * =============================
+ * 
+ * 1. Implement sales data aggregation API
+ * 2. Create time-series sales processing pipeline
+ * 3. Set up real-time sales data streaming
+ * 4. Implement sales data caching and optimization
+ * 5. Add sales data validation and sanitization
+ * 6. Set up sales performance monitoring and alerting
+ * 7. Implement sales data export functionality
+ * 8. Add custom sales query builder
+ * 9. Set up sales data backup and recovery
+ * 10. Implement sales user permissions and access control
  */
 'use client';
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -132,6 +210,8 @@ const salesMetrics = [
 ];
 
 export default function SalesChart() {
+  // All hooks must be called before any early return
+  const [loading, setLoading] = useState(true);
   const [selectedRange, setSelectedRange] = useState('Week');
   const [selectedDate, setSelectedDate] = useState('');
   const [selectedDay, setSelectedDay] = useState('');
@@ -139,7 +219,14 @@ export default function SalesChart() {
   const [selectedDayNum, setSelectedDayNum] = useState(String(new Date().getDate()));
   const [selectedYear, setSelectedYear] = useState(String(new Date().getFullYear()));
   const salesData = salesDataByRange[selectedRange];
+  const [showTopProducts, setShowTopProducts] = useState(false);
+  const [showSalesByCategory, setShowSalesByCategory] = useState(false);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
 
+  // Fix: Define lineData for the Line chart
   const lineData = {
     labels: salesData.labels,
     datasets: [
@@ -156,7 +243,8 @@ export default function SalesChart() {
     ],
   };
 
-  const getStatusColor = (status: string) => {
+  // Fix: Define getStatusColor for order status badges
+  function getStatusColor(status: string) {
     switch (status) {
       case 'Completed':
         return 'bg-green-100 text-green-800';
@@ -167,285 +255,298 @@ export default function SalesChart() {
       default:
         return 'bg-gray-100 text-gray-800';
     }
-  };
+  }
 
   return (
-    <div className="space-y-6">
-      {/* Sales Metrics Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {salesMetrics.map((metric, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md border border-gray-100 p-4 hover:shadow-lg transition-all duration-300 group">
-            <div className="flex items-center justify-between mb-3">
-              <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${metric.color} bg-opacity-10 group-hover:bg-opacity-20 transition-all duration-300`}>
-                <FontAwesomeIcon icon={metric.icon} className={`w-4 h-4 ${metric.color}`} />
-              </div>
-              <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
-                metric.isPositive 
-                  ? 'bg-green-100 text-green-700' 
-                  : 'bg-red-100 text-red-700'
-              }`}>
-                <FontAwesomeIcon 
-                  icon={metric.isPositive ? faArrowUp : faArrowDown} 
-                  className="w-2 h-2" 
-                />
-                <span>{metric.change}</span>
-              </div>
-            </div>
-            
-            <div className="space-y-1">
-              <h3 className="text-xs font-medium text-gray-600 uppercase tracking-wide">{metric.title}</h3>
-              <p className="text-2xl font-bold text-gray-900">{metric.value}</p>
-            </div>
-            
-            <div className="mt-3 pt-3 border-t border-gray-100">
-              <div className="flex items-center justify-between text-xs text-gray-500">
-                <span>vs last period</span>
-                <span className={`font-medium ${metric.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                  {metric.isPositive ? '+' : ''}{metric.change}
-                </span>
-              </div>
+    <div className="flex h-[90vh] w-full bg-gray-50">
+      {/* Main Content + Loading Overlay */}
+      <div className="relative flex-1">
+        {loading && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-50" style={{ left: '16rem' }}>
+            <div className="flex flex-col items-center gap-4">
+              <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+              <span className="text-lg font-semibold text-blue-700">Loading Sales...</span>
             </div>
           </div>
-        ))}
-      </div>
-
-      {/* Main Sales Chart */}
-      <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
-        <div className="flex flex-col gap-2 mb-6">
-          <div className="flex flex-row items-center justify-between gap-2 w-full">
-            <div>
-              <h2 className="text-lg font-semibold text-gray-900">Sales Overview</h2>
-              <p className="text-sm text-gray-500">Track your sales performance</p>
-            </div>
-            <div className="flex-1 flex justify-center">
-              <div className="flex flex-wrap items-center gap-2 md:gap-4">
-                {timeRanges.map((range) => (
-                  <button
-                    key={range}
-                    onClick={() => {
-                      setSelectedRange(range);
-                      if (range !== 'Week') setSelectedDay('');
-                    }}
-                    className={`px-3 py-1 text-sm rounded-md transition-colors duration-150 ${
-                      selectedRange === range
-                        ? 'bg-blue-100 text-blue-700 font-semibold'
-                        : 'text-gray-500 hover:text-blue-700 hover:bg-blue-50'
-                    }`}
-                  >
-                    {range}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="flex-none min-w-[110px] flex justify-end">
-              {selectedRange === 'Week' ? (
-                <div className="flex items-center gap-1">
-                  <span className="text-xs font-semibold text-gray-700">Day:</span>
-                  <select
-                    value={selectedDay}
-                    onChange={e => setSelectedDay(e.target.value)}
-                    className="border border-blue-300 bg-white text-blue-700 font-semibold rounded-md px-3 py-1 text-xs shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 hover:border-blue-400 transition"
-                  >
-                    <option value="">All</option>
-                    {daysOfWeek.map(day => (
-                      <option key={day} value={day}>{day}</option>
-                    ))}
-                  </select>
-                </div>
-              ) : (
-                <div className="invisible select-none" aria-hidden="true">
-                  <div className="flex items-center gap-1">
-                    <span className="text-xs font-semibold text-gray-700">Day:</span>
-                    <select className="border border-blue-300 bg-white text-blue-700 font-semibold rounded-md px-3 py-1 text-xs shadow-sm"></select>
+        )}
+        <main className="relative flex-1">
+          {/* Sales Metrics Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {salesMetrics.map((metric, index) => (
+              <div key={index} className="bg-white rounded-lg shadow-md border border-gray-100 p-4 hover:shadow-lg transition-all duration-300 group">
+                <div className="flex items-center justify-between mb-3">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${metric.color} bg-opacity-10 group-hover:bg-opacity-20 transition-all duration-300`}>
+                    <FontAwesomeIcon icon={metric.icon} className={`w-4 h-4 ${metric.color}`} />
+                  </div>
+                  <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
+                    metric.isPositive 
+                      ? 'bg-green-100 text-green-700' 
+                      : 'bg-red-100 text-red-700'
+                  }`}>
+                    <FontAwesomeIcon 
+                      icon={metric.isPositive ? faArrowUp : faArrowDown} 
+                      className="w-2 h-2" 
+                    />
+                    <span>{metric.change}</span>
                   </div>
                 </div>
+                
+                <div className="space-y-1">
+                  <h3 className="text-xs font-medium text-gray-600 uppercase tracking-wide">{metric.title}</h3>
+                  <p className="text-2xl font-bold text-gray-900">{metric.value}</p>
+                </div>
+                
+                <div className="mt-3 pt-3 border-t border-gray-100">
+                  <div className="flex items-center justify-between text-xs text-gray-500">
+                    <span>vs last period</span>
+                    <span className={`font-medium ${metric.isPositive ? 'text-green-600' : 'text-red-600'}`}>
+                      {metric.isPositive ? '+' : ''}{metric.change}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Main Sales Chart */}
+          <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+            <div className="flex flex-col gap-2 mb-6">
+              <div className="flex flex-row items-center justify-between gap-2 w-full">
+                <div>
+                  <h2 className="text-lg font-semibold text-gray-900">Sales Overview</h2>
+                  <p className="text-sm text-gray-500">Track your sales performance</p>
+                </div>
+                <div className="flex-1 flex justify-center">
+                  <div className="flex flex-wrap items-center gap-2 md:gap-4">
+                    {timeRanges.map((range) => (
+                      <button
+                        key={range}
+                        onClick={() => {
+                          setSelectedRange(range);
+                          if (range !== 'Week') setSelectedDay('');
+                        }}
+                        className={`px-3 py-1 text-sm rounded-md transition-colors duration-150 ${
+                          selectedRange === range
+                            ? 'bg-blue-100 text-blue-700 font-semibold'
+                            : 'text-gray-500 hover:text-blue-700 hover:bg-blue-50'
+                        }`}
+                      >
+                        {range}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex-none min-w-[110px] flex justify-end">
+                  {selectedRange === 'Week' ? (
+                    <div className="flex items-center gap-1">
+                      <span className="text-xs font-semibold text-gray-700">Day:</span>
+                      <select
+                        value={selectedDay}
+                        onChange={e => setSelectedDay(e.target.value)}
+                        className="border border-blue-300 bg-white text-blue-700 font-semibold rounded-md px-3 py-1 text-xs shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 hover:border-blue-400 transition"
+                      >
+                        <option value="">All</option>
+                        {daysOfWeek.map(day => (
+                          <option key={day} value={day}>{day}</option>
+                        ))}
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="invisible select-none" aria-hidden="true">
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs font-semibold text-gray-700">Day:</span>
+                        <select className="border border-blue-300 bg-white text-blue-700 font-semibold rounded-md px-3 py-1 text-xs shadow-sm"></select>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="h-64">
+              {selectedRange === 'Today' ? (
+                <Bar
+                  data={{
+                    labels: salesData.labels,
+                    datasets: [
+                      {
+                        label: 'Sales',
+                        data: salesData.values,
+                        backgroundColor: '#2563eb',
+                        borderRadius: 6,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { display: false },
+                      tooltip: { 
+                        enabled: true,
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                      },
+                    },
+                    scales: {
+                      y: { 
+                        beginAtZero: true,
+                        grid: {
+                          color: 'rgba(0,0,0,0.05)',
+                        }
+                      },
+                      x: {
+                        grid: {
+                          display: false,
+                        }
+                      }
+                    },
+                  }}
+                />
+              ) : selectedRange === 'Week' && selectedDay ? (
+                <Bar
+                  data={{
+                    labels: [selectedDay],
+                    datasets: [
+                      {
+                        label: 'Sales',
+                        data: [salesData.values[salesData.labels.indexOf(selectedDay)]],
+                        backgroundColor: '#2563eb',
+                        borderRadius: 6,
+                      },
+                    ],
+                  }}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { display: false },
+                      tooltip: { 
+                        enabled: true,
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                      },
+                    },
+                    scales: {
+                      y: { 
+                        beginAtZero: true,
+                        grid: {
+                          color: 'rgba(0,0,0,0.05)',
+                        }
+                      },
+                      x: {
+                        grid: {
+                          display: false,
+                        }
+                      }
+                    },
+                  }}
+                />
+              ) : (
+                <Line
+                  data={lineData}
+                  options={{
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                      legend: { display: false },
+                      tooltip: { 
+                        enabled: true,
+                        backgroundColor: 'rgba(0,0,0,0.8)',
+                        titleColor: 'white',
+                        bodyColor: 'white',
+                      },
+                    },
+                    scales: {
+                      y: { 
+                        beginAtZero: true,
+                        grid: {
+                          color: 'rgba(0,0,0,0.05)',
+                        }
+                      },
+                      x: {
+                        grid: {
+                          color: 'rgba(0,0,0,0.05)',
+                        }
+                      }
+                    },
+                  }}
+                />
               )}
             </div>
           </div>
-        </div>
-        <div className="h-64">
-          {selectedRange === 'Today' ? (
-            <Bar
-              data={{
-                labels: salesData.labels,
-                datasets: [
-                  {
-                    label: 'Sales',
-                    data: salesData.values,
-                    backgroundColor: '#2563eb',
-                    borderRadius: 6,
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false },
-                  tooltip: { 
-                    enabled: true,
-                    backgroundColor: 'rgba(0,0,0,0.8)',
-                    titleColor: 'white',
-                    bodyColor: 'white',
-                  },
-                },
-                scales: {
-                  y: { 
-                    beginAtZero: true,
-                    grid: {
-                      color: 'rgba(0,0,0,0.05)',
-                    }
-                  },
-                  x: {
-                    grid: {
-                      display: false,
-                    }
-                  }
-                },
-              }}
-            />
-          ) : selectedRange === 'Week' && selectedDay ? (
-            <Bar
-              data={{
-                labels: [selectedDay],
-                datasets: [
-                  {
-                    label: 'Sales',
-                    data: [salesData.values[salesData.labels.indexOf(selectedDay)]],
-                    backgroundColor: '#2563eb',
-                    borderRadius: 6,
-                  },
-                ],
-              }}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false },
-                  tooltip: { 
-                    enabled: true,
-                    backgroundColor: 'rgba(0,0,0,0.8)',
-                    titleColor: 'white',
-                    bodyColor: 'white',
-                  },
-                },
-                scales: {
-                  y: { 
-                    beginAtZero: true,
-                    grid: {
-                      color: 'rgba(0,0,0,0.05)',
-                    }
-                  },
-                  x: {
-                    grid: {
-                      display: false,
-                    }
-                  }
-                },
-              }}
-            />
-          ) : (
-            <Line
-              data={lineData}
-              options={{
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                  legend: { display: false },
-                  tooltip: { 
-                    enabled: true,
-                    backgroundColor: 'rgba(0,0,0,0.8)',
-                    titleColor: 'white',
-                    bodyColor: 'white',
-                  },
-                },
-                scales: {
-                  y: { 
-                    beginAtZero: true,
-                    grid: {
-                      color: 'rgba(0,0,0,0.05)',
-                    }
-                  },
-                  x: {
-                    grid: {
-                      color: 'rgba(0,0,0,0.05)',
-                    }
-                  }
-                },
-              }}
-            />
-          )}
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Top Selling Products */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">Top Selling Products</h3>
-              <p className="text-sm text-gray-500">Best performing items this period</p>
-            </div>
-            <FontAwesomeIcon icon={faTrophy} className="text-yellow-500 w-5 h-5" />
-          </div>
-          
-          <div className="space-y-4">
-            {topSellingProducts.map((product, index) => (
-              <div key={product.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
-                    {index + 1}
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{product.name}</p>
-                    <p className="text-xs text-gray-500">{product.category}</p>
-                  </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Top Selling Products */}
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Top Selling Products</h3>
+                  <p className="text-sm text-gray-500">Best performing items this period</p>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold text-gray-900">₱{product.revenue.toLocaleString()}</p>
-                  <p className="text-xs text-gray-500">{product.sales} units</p>
-                  <span className={`text-xs font-medium ${product.growth.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
-                    {product.growth}
-                  </span>
-                </div>
+                <FontAwesomeIcon icon={faTrophy} className="text-yellow-500 w-5 h-5" />
               </div>
-            ))}
-          </div>
-        </div>
+              
+              <div className="space-y-4">
+                {topSellingProducts.map((product, index) => (
+                  <div key={product.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{product.name}</p>
+                        <p className="text-xs text-gray-500">{product.category}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold text-gray-900">₱{product.revenue.toLocaleString()}</p>
+                      <p className="text-xs text-gray-500">{product.sales} units</p>
+                      <span className={`text-xs font-medium ${product.growth.startsWith('+') ? 'text-green-600' : 'text-red-600'}`}>
+                        {product.growth}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-        {/* Recent Orders */}
-        <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <h3 className="text-lg font-semibold text-gray-900">Recent Orders</h3>
-              <p className="text-sm text-gray-500">Latest customer orders</p>
-            </div>
-            <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">View All</button>
-          </div>
-          
-          <div className="space-y-3">
-            {recentOrders.map((order) => (
-              <div key={order.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
-                    <FontAwesomeIcon icon={faShoppingCart} className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-gray-900">{order.customer}</p>
-                    <p className="text-xs text-gray-500">{order.product}</p>
-                    <p className="text-xs text-gray-400">{order.date}</p>
-                  </div>
+            {/* Recent Orders */}
+            <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-4">
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Recent Orders</h3>
+                  <p className="text-sm text-gray-500">Latest customer orders</p>
                 </div>
-                <div className="text-right">
-                  <p className="text-sm font-semibold text-gray-900">₱{order.amount}</p>
-                  <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.status)}`}>
-                    {order.status}
-                  </span>
-                </div>
+                <button className="text-sm text-blue-600 hover:text-blue-800 font-medium">View All</button>
               </div>
-            ))}
+              
+              <div className="space-y-3">
+                {recentOrders.map((order) => (
+                  <div key={order.id} className="flex items-center justify-between p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center">
+                        <FontAwesomeIcon icon={faShoppingCart} className="w-4 h-4" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-medium text-gray-900">{order.customer}</p>
+                        <p className="text-xs text-gray-500">{order.product}</p>
+                        <p className="text-xs text-gray-400">{order.date}</p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm font-semibold text-gray-900">₱{order.amount}</p>
+                      <span className={`px-2 py-1 text-xs font-semibold rounded-full ${getStatusColor(order.status)}`}>
+                        {order.status}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
+        </main>
       </div>
     </div>
   );

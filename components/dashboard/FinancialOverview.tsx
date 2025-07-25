@@ -1,18 +1,99 @@
 /**
- * FinancialOverview Component
- *
- * Front-end Guidelines:
- * - Displays financial metrics: payouts, commissions, returns, revenue trends, expenses, and profit margins.
- * - Uses Chart.js for visualizations and FontAwesome for icons.
- * - UI/UX: Clear separation of financial sections, color-coded for clarity.
- *
- * Back-end Follow-through:
- * - Replace mock data with API calls for real financial data.
- * - Ensure endpoints provide breakdowns for payouts, commissions, returns, and trends.
- * - Handle loading, error, and empty states for all financial sections.
+ * FinancialOverview Component - Financial Analytics and Reporting
+ * 
+ * FRONT-END GUIDELINES:
+ * ====================
+ * 
+ * 1. COMPONENT STRUCTURE:
+ *    - Client-side component with React hooks and Chart.js integration
+ *    - Modular financial analytics with multiple data views
+ *    - Real-time financial data visualization and reporting
+ *    - Responsive design for financial management interface
+ * 
+ * 2. STATE MANAGEMENT:
+ *    - useState for financial data, alerts, and time periods
+ *    - useEffect for data fetching and real-time updates
+ *    - Local state for filtering, date ranges, and UI interactions
+ * 
+ * 3. UI/UX PATTERNS:
+ *    - Financial metrics cards with trend indicators
+ *    - Interactive charts for revenue and expense analysis
+ *    - Color-coded financial indicators (green/red)
+ *    - Real-time financial alerts and notifications
+ *    - Responsive financial data presentation
+ * 
+ * 4. FINANCIAL VISUALIZATION:
+ *    - Chart.js integration for financial charts
+ *    - Real-time financial data updates
+ *    - Interactive tooltips for financial details
+ *    - Performance optimization for financial datasets
+ * 
+ * 5. ACCESSIBILITY:
+ *    - ARIA labels for financial charts and metrics
+ *    - Screen reader friendly financial data presentation
+ *    - Keyboard navigation for financial operations
+ *    - High contrast financial indicators
+ * 
+ * 6. PERFORMANCE:
+ *    - Efficient financial data processing
+ *    - Real-time updates without page refresh
+ *    - Optimized rendering for large financial datasets
+ *    - Caching strategies for financial data
+ * 
+ * BACK-END INTEGRATION POINTS:
+ * ===========================
+ * 
+ * 1. API ENDPOINTS NEEDED:
+ *    - GET /api/financial/overview - Fetch financial overview data
+ *    - GET /api/financial/payouts - Fetch payout information
+ *    - GET /api/financial/commissions - Fetch commission breakdown
+ *    - GET /api/financial/returns - Fetch returns data
+ *    - GET /api/financial/revenue-trends - Fetch revenue trends
+ *    - GET /api/financial/expenses - Fetch expense breakdown
+ *    - GET /api/financial/profit-margins - Fetch profit margin data
+ * 
+ * 2. DATA STRUCTURES:
+ *    - Payout Data: { availableBalance, nextPayoutDate, payoutHistory }
+ *    - Commission Data: [{ label, amount, percentage, color }]
+ *    - Returns Data: { totalReturns, totalValue, returnRate, pendingReturns }
+ *    - Revenue Trends: { labels: [], datasets: [{ data: [] }] }
+ *    - Expense Breakdown: { labels: [], datasets: [{ data: [] }] }
+ * 
+ * 3. REAL-TIME FINANCIAL DATA:
+ *    - WebSocket integration for live financial updates
+ *    - Real-time revenue tracking and notifications
+ *    - Live expense monitoring and alerts
+ *    - Instant financial calculations and reporting
+ * 
+ * 4. FINANCIAL PROCESSING:
+ *    - Server-side financial calculations
+ *    - Real-time profit margin calculations
+ *    - Automated financial reporting
+ *    - Financial data validation and reconciliation
+ * 
+ * 5. SECURITY AND COMPLIANCE:
+ *    - Financial data encryption and security
+ *    - Audit logging for financial transactions
+ *    - Compliance with financial regulations
+ *    - Secure financial data transmission
+ * 
+ * TODO FOR BACK-END DEVELOPMENT:
+ * =============================
+ * 
+ * 1. Implement financial data aggregation API
+ * 2. Create real-time financial tracking system
+ * 3. Set up financial data security and encryption
+ * 4. Implement financial audit logging
+ * 5. Add financial data validation and reconciliation
+ * 6. Set up financial reporting automation
+ * 7. Implement financial export functionality
+ * 8. Add financial user permissions and access control
+ * 9. Set up financial data backup and recovery
+ * 10. Implement financial compliance monitoring
  */
 'use client';
 
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faMoneyBillWave, 
@@ -132,6 +213,23 @@ const financialAlerts = [
 ];
 
 export default function FinancialOverview() {
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-50" style={{ left: '16rem' }}>
+        <div className="flex flex-col items-center gap-4">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin" />
+          <span className="text-lg font-semibold text-blue-700">Loading Financials...</span>
+        </div>
+      </div>
+    );
+  }
+
   const getAlertColor = (type: string) => {
     switch (type) {
       case 'warning':
