@@ -1,3 +1,15 @@
+/**
+ * Toast Component (UI)
+ *
+ * Front-end Guidelines:
+ * - Provides toast notification primitives using Radix UI and custom styling.
+ * - Supports variants, actions, close, and viewport management.
+ * - UI/UX: Accessible, animated, and consistent with app design.
+ *
+ * Back-end Follow-through:
+ * - No direct back-end integration, but can be used to show API response messages.
+ * - Ensure API endpoints provide error/success messages for toast display.
+ */
 import * as React from "react"
 import * as ToastPrimitives from "@radix-ui/react-toast"
 import { cva, type VariantProps } from "class-variance-authority"

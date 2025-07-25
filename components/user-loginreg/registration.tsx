@@ -1,3 +1,18 @@
+/**
+ * SellerRegistration Component
+ *
+ * Front-end Guidelines:
+ * - Handles user registration for sellers with form validation and UI feedback.
+ * - Uses Radix UI, FontAwesome, and Next.js routing for a modern, accessible experience.
+ * - State management for form fields, error handling, and modal dialogs.
+ * - UI/UX: Responsive, clear error messages, and smooth navigation.
+ *
+ * Back-end Follow-through:
+ * - Integrate with registration API endpoint for user creation.
+ * - Ensure error handling for API responses (e.g., duplicate email, weak password).
+ * - Implement loading states and success/failure feedback.
+ * - Ensure data privacy and security best practices for user information.
+ */
 'use client';
 
 import React, { useState } from "react";
@@ -15,19 +30,21 @@ import Link from 'next/link';
 
 export default function SellerRegistration() {
   const router = useRouter();
+  // State for toggling password visibility
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  // State for modal dialogs
   const [termsOpen, setTermsOpen] = useState(false);
   const [consentOpen, setConsentOpen] = useState(false);
 
-  // Form state
+  // Form state for user input fields
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [termsChecked, setTermsChecked] = useState(false);
 
-  // Error state
+  // Error state for form validation
   const [errors, setErrors] = useState({
     username: "",
     email: "",
@@ -36,6 +53,10 @@ export default function SellerRegistration() {
     terms: "",
   });
 
+  /**
+   * Validates form fields and sets error messages
+   * Returns true if all fields are valid
+   */
   const validate = () => {
     const newErrors: typeof errors = {
       username: "",
@@ -56,6 +77,11 @@ export default function SellerRegistration() {
     return Object.values(newErrors).every((v) => v === "");
   };
 
+  /**
+   * Handles form submission
+   * - Validates fields, then navigates to proceeding page if valid
+   * - TODO: Integrate with back-end registration API
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validate()) {
@@ -65,6 +91,7 @@ export default function SellerRegistration() {
 
   return (
     <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 my-4 md:my-0">
+      {/* Left side: Illustration and info (hidden on mobile) */}
       <div className="hidden md:flex md:w-1/2 bg-gradient-to-br from-blue-600 to-cyan-400 p-8 relative flex-col">
         <TooltipProvider>
           <Tooltip>
@@ -86,6 +113,7 @@ export default function SellerRegistration() {
           </Tooltip>
         </TooltipProvider>
         <div className="flex flex-col items-center justify-center relative flex-grow min-h-[500px] mb-2 mt-16">
+          {/* Vendor illustration graphic */}
           <svg width="440" height="440" viewBox="0 0 440 440" fill="none" xmlns="http://www.w3.org/2000/svg" className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 opacity-80 z-0">
             <circle cx="220" cy="220" r="200" fill="#fff" fillOpacity="0.08" />
             <circle cx="220" cy="220" r="150" fill="#fff" fillOpacity="0.12" />

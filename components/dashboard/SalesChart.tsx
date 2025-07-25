@@ -1,3 +1,17 @@
+/**
+ * SalesChart Component
+ *
+ * Front-end Guidelines:
+ * - Visualizes sales data over different time ranges (Today, Week, Month, Year).
+ * - Uses Chart.js for graphs and FontAwesome for icons.
+ * - Displays top selling products, sales by category, and recent orders.
+ * - UI/UX: Interactive, filterable, and visually clear.
+ *
+ * Back-end Follow-through:
+ * - Replace mock data with API calls for real sales, products, and orders.
+ * - Ensure endpoints provide data in the expected format for charts and tables.
+ * - Handle loading, error, and empty states for all data sections.
+ */
 'use client';
 
 import { useState } from 'react';
@@ -27,6 +41,7 @@ import {
   faArrowDown
 } from '@fortawesome/free-solid-svg-icons';
 
+// Register Chart.js components for use in charts
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -39,13 +54,15 @@ ChartJS.register(
   ArcElement
 );
 
+// Time range options for filtering sales data
 const timeRanges = ['Today', 'Week', 'Month', 'Year'];
+// Labels for x-axis in different views
 const daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 const months = Array.from({ length: 12 }, (_, i) => String(i + 1).padStart(2, '0'));
 const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
 const years = Array.from({ length: 6 }, (_, i) => String(2020 + i));
 
-// mock data for sales graph overview
+// Mock data for sales graph overview
 const salesDataByRange: Record<string, { labels: string[]; values: number[] }> = {
   Today: {
     labels: ['Mon'],
@@ -69,7 +86,7 @@ const salesDataByRange: Record<string, { labels: string[]; values: number[] }> =
   },
 };
 
-// mock data for Top Selling Products
+// Mock data for Top Selling Products
 const topSellingProducts = [
   { id: 1, name: 'Premium Wireless Headphones', sales: 234, revenue: 46800, growth: '+15%', category: 'Electronics' },
   { id: 2, name: 'Organic Cotton T-Shirt', sales: 189, revenue: 3780, growth: '+8%', category: 'Apparel' },
@@ -78,7 +95,7 @@ const topSellingProducts = [
   { id: 5, name: 'Natural Face Cream', sales: 128, revenue: 2560, growth: '+12%', category: 'Beauty' },
 ];
 
-// mock data for Sales by Category
+// Mock data for Sales by Category (for doughnut chart)
 const salesByCategoryData = {
   labels: ['Electronics', 'Apparel', 'Home', 'Beauty', 'Sports'],
   datasets: [

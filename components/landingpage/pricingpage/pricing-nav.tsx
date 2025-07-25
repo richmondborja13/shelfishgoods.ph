@@ -1,3 +1,16 @@
+/**
+ * PricingNav Component
+ *
+ * Front-end Guidelines:
+ * - Provides navigation for the pricing page, including dropdowns and mobile menu.
+ * - Uses Lucide icons and Next.js navigation.
+ * - UI/UX: Responsive, accessible, highlights active route, and supports dropdowns for pricing/services.
+ *
+ * Back-end Follow-through:
+ * - If navigation items are dynamic, fetch from API or config.
+ * - Ensure route permissions and access control are enforced on the back-end.
+ * - Integrate with user roles if needed for conditional rendering.
+ */
 'use client';
 
 import { useState } from 'react';

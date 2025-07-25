@@ -1,3 +1,15 @@
+/**
+ * TestimonialsSection Component
+ *
+ * Front-end Guidelines:
+ * - Displays customer testimonials in a carousel format.
+ * - Uses Lucide icons, Framer Motion for animation, and Radix Tooltip for info.
+ * - UI/UX: Responsive, animated, and highlights customer feedback and achievements.
+ *
+ * Back-end Follow-through:
+ * - If testimonials are dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide testimonial content, ratings, and avatars as needed.
+ */
 'use client';
 
 import React, { useEffect, useState } from 'react';

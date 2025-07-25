@@ -1,3 +1,16 @@
+/**
+ * LoginPage Component
+ *
+ * Front-end Guidelines:
+ * - Provides user login form with social login options and password visibility toggle.
+ * - Uses Radix UI, FontAwesome, Next.js Link, and custom Button component.
+ * - UI/UX: Responsive, accessible, and clear error/feedback messages.
+ *
+ * Back-end Follow-through:
+ * - Integrate with authentication API endpoint for user login.
+ * - Ensure error handling for API responses (e.g., invalid credentials).
+ * - Implement loading states and success/failure feedback.
+ */
 "use client";
 import React, { useState } from "react";
 import * as Checkbox from '@radix-ui/react-checkbox';

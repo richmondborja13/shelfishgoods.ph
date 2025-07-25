@@ -1,3 +1,15 @@
+/**
+ * Dialog Component (UI)
+ *
+ * Front-end Guidelines:
+ * - Provides modal dialog primitives using Radix UI and custom styling.
+ * - Supports overlay, header, footer, title, description, and close actions.
+ * - UI/UX: Accessible, animated, and consistent with app design.
+ *
+ * Back-end Follow-through:
+ * - No direct back-end integration, but ensure dialog actions (e.g., form submits) are handled properly.
+ * - Integrate with API endpoints as needed for dialog-triggered actions.
+ */
 import * as React from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"

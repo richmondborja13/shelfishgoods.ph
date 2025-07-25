@@ -1,3 +1,15 @@
+/**
+ * CaseStudiesSection Component
+ *
+ * Front-end Guidelines:
+ * - Displays case studies with company, challenge, solution, and results.
+ * - Uses Lucide icons, Next.js Link, and UI dialogs/hover cards for details.
+ * - UI/UX: Engaging, expandable, and highlights business impact.
+ *
+ * Back-end Follow-through:
+ * - If case studies are dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide case study content, results, and company info as needed.
+ */
 'use client';
 
 import Link from 'next/link';

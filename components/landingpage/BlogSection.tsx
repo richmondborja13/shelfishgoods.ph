@@ -1,3 +1,15 @@
+/**
+ * BlogSection Component
+ *
+ * Front-end Guidelines:
+ * - Displays blog posts, featured articles, and insights.
+ * - Uses Lucide icons, Next.js Link, and UI dialogs/hover cards for details.
+ * - UI/UX: Engaging, expandable, and highlights featured content.
+ *
+ * Back-end Follow-through:
+ * - If blog posts are dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide post content, author info, and categories as needed.
+ */
 'use client';
 
 import Link from 'next/link';

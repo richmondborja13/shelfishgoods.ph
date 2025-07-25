@@ -1,3 +1,15 @@
+/**
+ * AboutSection Component
+ *
+ * Front-end Guidelines:
+ * - Describes company values, mission, and key stats.
+ * - Uses Lucide icons, Framer Motion for animation, and Radix Tooltip for info.
+ * - UI/UX: Visually engaging, highlights values and team.
+ *
+ * Back-end Follow-through:
+ * - If about content is dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide company info, values, and stats as needed.
+ */
 "use client";
 import { motion } from 'framer-motion';
 import { 

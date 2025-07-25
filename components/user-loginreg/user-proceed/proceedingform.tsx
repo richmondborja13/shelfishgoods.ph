@@ -1,3 +1,17 @@
+/**
+ * SellerRegistrationForm Component (Proceeding)
+ *
+ * Front-end Guidelines:
+ * - Multi-step form for seller onboarding, including business, partnership, and document upload.
+ * - Uses React Hook Form, Next.js router, and custom state for progress and modals.
+ * - UI/UX: Responsive, clear validation, progress indicators, and feedback.
+ *
+ * Back-end Follow-through:
+ * - Integrate with seller registration API endpoint for onboarding.
+ * - Ensure error handling for API responses (e.g., validation, upload errors).
+ * - Implement loading states, document upload, and success/failure feedback.
+ * - Ensure data privacy and security best practices for sensitive information.
+ */
 'use client';
 
 import { useState } from 'react';

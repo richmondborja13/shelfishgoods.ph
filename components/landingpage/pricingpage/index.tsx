@@ -1,3 +1,15 @@
+/**
+ * PricingPage Component
+ *
+ * Front-end Guidelines:
+ * - Displays detailed pricing plans by category, with features and CTAs.
+ * - Uses Lucide icons, Next.js Link, and Footer component.
+ * - UI/UX: Responsive, filterable by category, and highlights popular plans.
+ *
+ * Back-end Follow-through:
+ * - If plans are dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide plan details, features, and pricing as needed.
+ */
 'use client';
 
 import React, { useState } from 'react';

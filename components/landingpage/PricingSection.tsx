@@ -1,3 +1,15 @@
+/**
+ * PricingSection Component
+ *
+ * Front-end Guidelines:
+ * - Displays pricing tiers, features, and plan comparison.
+ * - Uses Lucide icons, Framer Motion for animation, Radix UI for switch/dialog, and Next.js Link.
+ * - UI/UX: Responsive, interactive, highlights recommended plans, and supports monthly/annual toggle.
+ *
+ * Back-end Follow-through:
+ * - If pricing is dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide tier details, features, and pricing as needed.
+ */
 'use client';
 
 import { useState } from 'react';
@@ -33,21 +45,21 @@ const Switch = React.forwardRef<
 Switch.displayName = SwitchPrimitives.Root.displayName
 
 interface PricingFeature {
-  name: string;
-  included: boolean;
+  name: string; // Name of the feature
+  included: boolean; // Whether the feature is included in the tier
 }
 
 interface PricingTier {
-  name: string;
-  description: string;
+  name: string; // Name of the pricing tier
+  description: string; // Description of the tier
   price: {
-    monthly: number;
-    annual: number;
+    monthly: number; // Monthly price
+    annual: number; // Annual price
   };
-  features: PricingFeature[];
-  highlighted?: boolean;
-  icon: React.ComponentType<any>;
-  color: string;
+  features: PricingFeature[]; // List of features for the tier
+  highlighted?: boolean; // Whether this tier is highlighted/recommended
+  icon: React.ComponentType<any>; // Icon for the tier
+  color: string; // Color gradient for the tier card
 }
 
 // pricing tiers on the pricing section

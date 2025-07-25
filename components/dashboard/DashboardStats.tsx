@@ -1,3 +1,18 @@
+/**
+ * DashboardStats Component
+ *
+ * Front-end Guidelines:
+ * - Displays key business statistics in card format with icons and trend indicators.
+ * - Uses Chart.js for data visualization and FontAwesome for icons.
+ * - Accepts no props; stats are currently hardcoded but should be replaced with dynamic data.
+ * - UI/UX: Cards are interactive with hover effects, color-coded for positive/negative trends.
+ *
+ * Back-end Follow-through:
+ * - Replace hardcoded stats with data fetched from the back-end (e.g., sales, products, etc.).
+ * - Ensure API endpoints provide the required statistics in the expected format.
+ * - Handle loading and error states for data fetching.
+ * - Consider caching or optimizing API calls for dashboard performance.
+ */
 "use client";
 
 import {
@@ -23,6 +38,7 @@ import {
   faArrowDown
 } from '@fortawesome/free-solid-svg-icons';
 
+// Register Chart.js components for use in charts
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -35,22 +51,33 @@ ChartJS.register(
   ArcElement
 );
 
+/**
+ * Props for StatCard component
+ * - Used to display a single statistic card on the dashboard
+ */
 interface StatCardProps {
-  title: string;
-  value: string | number;
-  change: string;
-  isPositive: boolean;
-  icon: any;
-  color: string;
+  title: string; // Title of the statistic (e.g., "Total Sales")
+  value: string | number; // Value to display (e.g., "$24,567")
+  change: string; // Percentage or value change (e.g., "12.5%")
+  isPositive: boolean; // Indicates if the change is positive or negative
+  icon: any; // Icon to display (FontAwesome)
+  color: string; // Tailwind color class for icon and highlights
 }
 
+/**
+ * StatCard component
+ * - Renders a single dashboard statistic with icon, value, and trend
+ * - UI/UX: Color and icon indicate positive/negative trends
+ */
 function StatCard({ title, value, change, isPositive, icon, color }: StatCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md border border-gray-100 p-4 hover:shadow-lg transition-all duration-300 group">
       <div className="flex items-center justify-between mb-3">
+        {/* Icon with color and background */}
         <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${color} bg-opacity-10 group-hover:bg-opacity-20 transition-all duration-300`}>
           <FontAwesomeIcon icon={icon} className={`w-4 h-4 ${color}`} />
         </div>
+        {/* Change indicator with up/down arrow */}
         <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-semibold ${
           isPositive 
             ? 'bg-green-100 text-green-700' 
@@ -65,11 +92,13 @@ function StatCard({ title, value, change, isPositive, icon, color }: StatCardPro
       </div>
       
       <div className="space-y-1">
+        {/* Statistic title and value */}
         <h3 className="text-xs font-medium text-gray-600 uppercase tracking-wide">{title}</h3>
         <p className="text-2xl font-bold text-gray-900">{value}</p>
       </div>
       
       <div className="mt-3 pt-3 border-t border-gray-100">
+        {/* Comparison to previous period */}
         <div className="flex items-center justify-between text-xs text-gray-500">
           <span>vs last month</span>
           <span className={`font-medium ${isPositive ? 'text-green-600' : 'text-red-600'}`}>
@@ -81,7 +110,13 @@ function StatCard({ title, value, change, isPositive, icon, color }: StatCardPro
   );
 }
 
+/**
+ * DashboardStats main component
+ * - Displays a grid of StatCards for key business metrics
+ * - TODO: Replace hardcoded stats with API data
+ */
 export default function DashboardStats() {
+  // Example stats array; should be fetched from back-end
   const stats = [
     {
       title: "Total Sales",

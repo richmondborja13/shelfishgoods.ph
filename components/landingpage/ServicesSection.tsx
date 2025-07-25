@@ -1,3 +1,15 @@
+/**
+ * ServicesSection Component
+ *
+ * Front-end Guidelines:
+ * - Lists and describes core services offered by the platform.
+ * - Uses Lucide icons, Framer Motion for animation, and Next.js Link for navigation.
+ * - UI/UX: Responsive, animated, and visually engaging.
+ *
+ * Back-end Follow-through:
+ * - If services are dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide service details and features as needed.
+ */
 'use client';
 
 import { motion } from 'framer-motion';

@@ -1,3 +1,15 @@
+/**
+ * Footer Component
+ *
+ * Front-end Guidelines:
+ * - Displays navigation links, social media, and payment icons.
+ * - Uses Lucide icons and Next.js Link for navigation.
+ * - UI/UX: Responsive, accessible, and visually consistent with the brand.
+ *
+ * Back-end Follow-through:
+ * - If footer links or social icons are dynamic, fetch from API or config.
+ * - Ensure endpoints provide company info, support links, and payment options as needed.
+ */
 import React from 'react';
 import Link from 'next/link';
 import { Facebook, Twitter, Instagram, Linkedin, CreditCard, Shield, Smartphone, Users, Store, Settings, HelpCircle } from 'lucide-react';

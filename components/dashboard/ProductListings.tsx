@@ -1,3 +1,17 @@
+/**
+ * ProductListings Component
+ *
+ * Front-end Guidelines:
+ * - Displays a paginated, sortable table of products with status, stock, and actions.
+ * - Uses FontAwesome icons for actions and status indicators.
+ * - Includes product suggestions and low-performing product highlights.
+ * - UI/UX: Supports sorting, searching, and responsive design.
+ *
+ * Back-end Follow-through:
+ * - Replace mock product data with API calls for real inventory.
+ * - Ensure endpoints support pagination, sorting, and filtering.
+ * - Integrate with product management endpoints for actions (edit, view, etc.).
+ */
 'use client';
 
 import { useState } from 'react';
@@ -14,18 +28,19 @@ import {
   faEdit 
 } from '@fortawesome/free-solid-svg-icons';
 
+// Product type definition for listings
 interface Product {
-  id: string;
-  name: string;
-  category: string;
-  price: number;
-  stock: number;
-  status: 'Active' | 'Inactive' | 'Out of Stock';
-  sku: string;
-  dateAdded: string;
+  id: string; // Unique product ID
+  name: string; // Product name
+  category: string; // Product category
+  price: number; // Product price
+  stock: number; // Units in stock
+  status: 'Active' | 'Inactive' | 'Out of Stock'; // Product status
+  sku: string; // Stock keeping unit
+  dateAdded: string; // Date product was added
 }
 
-// mock data for Product Listings
+// Mock data for Product Listings
 const MOCK_PRODUCTS: Product[] = [
   { id: '1', name: 'Premium Headphones', category: 'Electronics', price: 199.99, stock: 45, status: 'Active', sku: 'ELEC-001', dateAdded: '2024-06-01' },
   { id: '2', name: 'Wireless Mouse', category: 'Electronics', price: 49.99, stock: 0, status: 'Out of Stock', sku: 'ELEC-002', dateAdded: '2024-06-03' },

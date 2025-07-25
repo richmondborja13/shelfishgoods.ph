@@ -1,3 +1,15 @@
+/**
+ * ContactSection Component
+ *
+ * Front-end Guidelines:
+ * - Provides a contact form and company contact info.
+ * - Uses Lucide icons, Framer Motion for animation, and custom input components.
+ * - UI/UX: Accessible, responsive, and provides feedback on submission.
+ *
+ * Back-end Follow-through:
+ * - Integrate form submission with back-end endpoint or email service.
+ * - Ensure endpoints handle validation, spam protection, and notifications.
+ */
 'use client';
 
 import * as React from "react"

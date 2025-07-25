@@ -1,3 +1,16 @@
+/**
+ * CustomerInteraction Component
+ *
+ * Front-end Guidelines:
+ * - Displays recent reviews, message stats, and customer behavior analytics.
+ * - Uses Chart.js for doughnut charts and FontAwesome for icons.
+ * - UI/UX: Highlights customer feedback and actionable insights.
+ *
+ * Back-end Follow-through:
+ * - Replace mock data with API calls for real reviews, messages, and analytics.
+ * - Ensure endpoints provide review, message, and customer segmentation data.
+ * - Handle loading, error, and empty states for all customer sections.
+ */
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

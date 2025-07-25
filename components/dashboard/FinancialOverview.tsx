@@ -1,3 +1,16 @@
+/**
+ * FinancialOverview Component
+ *
+ * Front-end Guidelines:
+ * - Displays financial metrics: payouts, commissions, returns, revenue trends, expenses, and profit margins.
+ * - Uses Chart.js for visualizations and FontAwesome for icons.
+ * - UI/UX: Clear separation of financial sections, color-coded for clarity.
+ *
+ * Back-end Follow-through:
+ * - Replace mock data with API calls for real financial data.
+ * - Ensure endpoints provide breakdowns for payouts, commissions, returns, and trends.
+ * - Handle loading, error, and empty states for all financial sections.
+ */
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,8 +55,8 @@ ChartJS.register(
 
 // Payout mock data
 const payoutData = {
-  availableBalance: 15420,
-  nextPayoutDate: 'July 15, 2025',
+  availableBalance: 15420, // Current available balance for payout
+  nextPayoutDate: 'July 15, 2025', // Next scheduled payout date
 };
 
 // Commission mock data
@@ -56,11 +69,11 @@ const commissionData = [
 
 // Returns mock data
 const returnsData = {
-  totalReturns: 12,
-  totalValue: 3240,
-  returnRate: 2.8,
-  pendingReturns: 3,
-  resolvedReturns: 9,
+  totalReturns: 12, // Number of returns
+  totalValue: 3240, // Total value of returns
+  returnRate: 2.8, // Return rate percentage
+  pendingReturns: 3, // Returns pending resolution
+  resolvedReturns: 9, // Returns resolved
 };
 
 // Revenue Trends mock data

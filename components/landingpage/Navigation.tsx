@@ -1,3 +1,16 @@
+/**
+ * Navigation Component
+ *
+ * Front-end Guidelines:
+ * - Provides main navigation for the landing page, including dropdowns and mobile menu.
+ * - Uses Lucide icons and Next.js navigation.
+ * - UI/UX: Responsive, accessible, highlights active route, and supports dropdowns for pricing/services.
+ *
+ * Back-end Follow-through:
+ * - If navigation items are dynamic, fetch from API or config.
+ * - Ensure route permissions and access control are enforced on the back-end.
+ * - Integrate with user roles if needed for conditional rendering.
+ */
 'use client';
 
 import { useState } from 'react';
@@ -8,9 +21,13 @@ import { ChevronDown, Menu, X, Store, BarChart3, Crown, Play, CreditCard, Calend
 
 const Navigation = () => {
   const router = useRouter();
+  // State for mobile menu open/close
   const [isOpen, setIsOpen] = useState(false);
+  // State for About dropdown open/close
   const [isAboutDropdownOpen, setIsAboutDropdownOpen] = useState(false);
+  // State for Pricing dropdown open/close
   const [isPricingDropdownOpen, setIsPricingDropdownOpen] = useState(false);
+  // Current route for active link highlighting
   const pathname = usePathname();
 
   // nav items on the navigation
@@ -20,7 +37,7 @@ const Navigation = () => {
     { name: 'Contact', path: '#contact' }
   ];
 
-  // grouped dropdown items
+  // grouped dropdown items for pricing
   const pricingDropdownSections = [
     {
       title: 'PLANS',

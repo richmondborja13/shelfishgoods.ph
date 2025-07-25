@@ -1,3 +1,16 @@
+/**
+ * AnalyticsOverview Component
+ *
+ * Front-end Guidelines:
+ * - Shows analytics for best selling times, top days, product uploads, sales trends, and revenue by category.
+ * - Uses Chart.js for visualizations and FontAwesome for icons.
+ * - UI/UX: Data is grouped by relevance and visualized for quick insights.
+ *
+ * Back-end Follow-through:
+ * - Replace mock data with API calls for real analytics.
+ * - Ensure endpoints provide time-based and category-based analytics.
+ * - Handle loading, error, and empty states for all analytics sections.
+ */
 'use client';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

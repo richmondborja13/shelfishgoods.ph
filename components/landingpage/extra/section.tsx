@@ -1,3 +1,15 @@
+/**
+ * StoreManagementSection Component (Extra)
+ *
+ * Front-end Guidelines:
+ * - Highlights store management, vendor partnerships, and analytics features.
+ * - Uses Lucide icons, Framer Motion for animation, and Radix UI Card for layout.
+ * - UI/UX: Visually engaging, responsive, and emphasizes security and reliability.
+ *
+ * Back-end Follow-through:
+ * - If section content is dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide feature highlights and stats as needed.
+ */
 "use client";
 
 import { motion } from "framer-motion";

@@ -1,3 +1,17 @@
+/**
+ * HeroSection Component
+ *
+ * Front-end Guidelines:
+ * - Main landing page hero section with animated headline and call-to-action.
+ * - Uses Framer Motion for animation, Radix UI for dialogs/tooltips, and Lucide icons.
+ * - Handles smooth scrolling to sections and modal state for user interaction.
+ * - UI/UX: Responsive, visually engaging, and accessible.
+ *
+ * Back-end Follow-through:
+ * - If dynamic content (headline, stats, etc.) is needed, integrate with CMS or API.
+ * - Ensure endpoints provide necessary data for hero section personalization.
+ * - Consider A/B testing or analytics hooks for user engagement tracking.
+ */
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -9,9 +23,15 @@ import { Button } from '@/components/ui/button';
 import { Info, Play, ArrowRight, CheckCircle, Star, X } from 'lucide-react';
 
 export default function HeroSection() {
+  // State for modal dialog visibility
   const [modalOpen, setModalOpen] = useState(false);
+  // State for which section to scroll to after modal closes
   const [scrollTarget, setScrollTarget] = useState<string | null>(null);
 
+  /**
+   * Scrolls smoothly to a section by ID
+   * @param sectionId - The DOM id of the section to scroll to
+   */
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -19,6 +39,7 @@ export default function HeroSection() {
     }
   };
 
+  // Effect: If modal closes and scrollTarget is set, scroll to that section
   useEffect(() => {
     if (!modalOpen && scrollTarget) {
       setTimeout(() => {
@@ -28,11 +49,13 @@ export default function HeroSection() {
     }
   }, [modalOpen, scrollTarget]);
 
+  // Animated typing effect for headline
   const text = "Shelf-ish Goods Solutions";
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTyping, setIsTyping] = useState(false);   
 
+  // Start typing after 2 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsTyping(true);
@@ -41,7 +64,7 @@ export default function HeroSection() {
     return () => clearTimeout(timer);
   }, []);
 
-  // this add one character at a time every 120ms
+  // Add one character at a time every 120ms for typing effect
   useEffect(() => {
     if (isTyping && currentIndex < text.length) {
       const timeout = setTimeout(() => {
@@ -54,14 +77,17 @@ export default function HeroSection() {
 
   return (
     <Tooltip.Provider>
+      {/* Hero section with animated background and call-to-action */}
       <section id="hero" className="min-h-screen flex flex-col justify-center pt-24 pb-16 bg-gradient-to-br from-white via-blue-50 to-cyan-50 relative overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
+          {/* Decorative blurred background gradients */}
           <div className="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-blue-400 to-cyan-600 rounded-full opacity-10 blur-3xl"></div>
           <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full opacity-10 blur-3xl"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col justify-center relative z-10">
           <div className="text-center">
+            {/* Trust badge with animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -72,6 +98,7 @@ export default function HeroSection() {
               Trusted by 10,000+ businesses worldwide
             </motion.div>
 
+            {/* Animated headline with sliding and typing effect */}
             <motion.h1 
               className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight"
               initial={{ opacity: 0, y: 30 }}

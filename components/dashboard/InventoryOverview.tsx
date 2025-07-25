@@ -1,3 +1,17 @@
+/**
+ * InventoryOverview Component
+ *
+ * Front-end Guidelines:
+ * - Shows low stock alerts, top viewed products, and product performance metrics.
+ * - Uses FontAwesome icons for status and actions.
+ * - Supports sorting by various product metrics.
+ * - UI/UX: Highlights critical inventory issues and trends.
+ *
+ * Back-end Follow-through:
+ * - Replace mock data with API calls for real inventory and analytics.
+ * - Ensure endpoints provide data for low stock, views, and performance.
+ * - Integrate with inventory management and analytics endpoints.
+ */
 'use client';
 
 import { useState } from 'react';

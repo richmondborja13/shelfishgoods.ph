@@ -1,3 +1,15 @@
+/**
+ * FAQSection Component
+ *
+ * Front-end Guidelines:
+ * - Displays frequently asked questions in an accordion format.
+ * - Uses Radix UI Accordion, custom icons, and utility classes.
+ * - UI/UX: Accessible, animated, and easy to scan for answers.
+ *
+ * Back-end Follow-through:
+ * - If FAQs are dynamic, fetch from API or CMS.
+ * - Ensure endpoints provide question/answer pairs and categories as needed.
+ */
 'use client';
 
 import * as React from "react"

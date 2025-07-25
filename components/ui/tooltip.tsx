@@ -1,3 +1,15 @@
+/**
+ * Tooltip Component (UI)
+ *
+ * Front-end Guidelines:
+ * - Provides tooltip primitives using Radix UI and custom styling.
+ * - Supports custom content, alignment, and styling.
+ * - UI/UX: Accessible, animated, and consistent with app design.
+ *
+ * Back-end Follow-through:
+ * - No direct back-end integration, but can be used to show dynamic data from API.
+ * - Ensure API endpoints provide data for tooltip content if needed.
+ */
 import * as React from "react"
 import * as TooltipPrimitive from "@radix-ui/react-tooltip"
 import { cn } from "@/lib/utils"

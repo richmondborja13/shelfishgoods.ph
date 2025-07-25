@@ -1,8 +1,22 @@
+/**
+ * Button Component
+ *
+ * Front-end Guidelines:
+ * - Reusable button component with multiple variants and sizes using class-variance-authority (CVA).
+ * - Supports Radix Slot for advanced composition and custom elements.
+ * - Use the 'variant' and 'size' props for consistent styling across the app.
+ * - UI/UX: Accessible, keyboard-navigable, and visually consistent.
+ *
+ * Back-end Follow-through:
+ * - No direct back-end integration, but ensure button triggers (e.g., form submits, API calls) are handled properly.
+ * - Follow accessibility and loading state best practices for actions that interact with the back-end.
+ */
 import * as React from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { cva, type VariantProps } from "class-variance-authority"
 import { cn } from "@/lib/utils"
 
+// Utility for button style variants using class-variance-authority (CVA)
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
@@ -32,14 +46,26 @@ const buttonVariants = cva(
   }
 )
 
+/**
+ * ButtonProps interface
+ * - Extends native button props and supports CVA variants
+ * - asChild: allows rendering as a custom element via Radix Slot
+ */
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   asChild?: boolean
 }
 
+/**
+ * Button component
+ * - Supports multiple variants and sizes for consistent UI
+ * - Can render as a native button or custom element (asChild)
+ * - Forwards ref for accessibility and integration
+ */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant, size, asChild = false, ...props }, ref) => {
+    // Use Radix Slot for advanced composition, otherwise render <button>
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
@@ -52,4 +78,5 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = "Button"
 
+// Export Button and style variants for use in other components
 export { Button, buttonVariants } 

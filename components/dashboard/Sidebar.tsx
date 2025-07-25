@@ -1,3 +1,17 @@
+/**
+ * Sidebar Component
+ *
+ * Front-end Guidelines:
+ * - Provides navigation for dashboard sections (Home, Products, Reports, Settings).
+ * - Responsive: can be collapsed/expanded for more screen space.
+ * - Uses FontAwesome icons and Next.js navigation.
+ * - UI/UX: Highlights active route, groups links by category, and shows logo.
+ *
+ * Back-end Follow-through:
+ * - If navigation items are dynamic, fetch from API or config.
+ * - Ensure route permissions and access control are enforced on the back-end.
+ * - Integrate with user roles if needed for conditional rendering.
+ */
 'use client';
 
 import { useState } from 'react';
@@ -18,6 +32,7 @@ import {
   faPlus
 } from '@fortawesome/free-solid-svg-icons';
 
+// Navigation link structure for sidebar
 const navLinks = [
   {
     category: 'Home',
@@ -82,7 +97,9 @@ const navLinks = [
 ];
 
 export default function Sidebar() {
+  // State for sidebar collapse/expand
   const [collapsed, setCollapsed] = useState(false);
+  // Current route for active link highlighting
   const pathname = usePathname();
 
   return (
@@ -92,6 +109,7 @@ export default function Sidebar() {
       } bg-gradient-to-b from-blue-700 to-blue-900 text-white relative`}
     >
       <div className="flex items-center justify-center px-4 py-6 border-b border-blue-800">
+        {/* Show logo or app name depending on collapse state */}
         {collapsed ? (
           <div className="bg-white rounded-lg p-1">
             <Image src="/images/icons/logosg.png" alt="Shelf-ish Goods Logo" width={32} height={32} />

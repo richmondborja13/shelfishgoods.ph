@@ -1,3 +1,15 @@
+/**
+ * HoverCard Component (UI)
+ *
+ * Front-end Guidelines:
+ * - Provides hover-triggered popover using Radix UI.
+ * - Supports custom content, alignment, and styling.
+ * - UI/UX: Accessible, animated, and consistent with app design.
+ *
+ * Back-end Follow-through:
+ * - No direct back-end integration, but can be used to show dynamic data from API.
+ * - Ensure API endpoints provide data for hover content if needed.
+ */
 import * as React from "react"
 import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
 import { cn } from "@/lib/utils"
