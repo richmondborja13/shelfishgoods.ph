@@ -20,7 +20,7 @@ const Navigation = () => {
     { name: 'Contact', path: '#contact' }
   ];
 
-  // grouped dropdown items for Hostinger-style layout
+  // grouped dropdown items
   const pricingDropdownSections = [
     {
       title: 'PLANS',
@@ -116,7 +116,7 @@ const Navigation = () => {
   ].map(section => ({
     ...section,
     items: section.items.slice().sort((a, b) => {
-      if (a.badge === 'POPULAR') return -1;
+      if (a.badge === 'POPULAR') return -1; 
       if (b.badge === 'POPULAR') return 1;
       if (a.badge && !b.badge) return -1;
       if (!a.badge && b.badge) return 1;

@@ -19,10 +19,8 @@ export default function HeroSection() {
     }
   };
 
-  // scroll after modal closes
   useEffect(() => {
     if (!modalOpen && scrollTarget) {
-      // timeout ensures scroll happens after modal is fully closed
       setTimeout(() => {
         scrollToSection(scrollTarget);
         setScrollTarget(null);
@@ -33,7 +31,7 @@ export default function HeroSection() {
   const text = "Shelf-ish Goods Solutions";
   const [displayText, setDisplayText] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTyping, setIsTyping] = useState(false);
+  const [isTyping, setIsTyping] = useState(false);   
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -43,6 +41,7 @@ export default function HeroSection() {
     return () => clearTimeout(timer);
   }, []);
 
+  // this add one character at a time every 120ms
   useEffect(() => {
     if (isTyping && currentIndex < text.length) {
       const timeout = setTimeout(() => {
@@ -79,10 +78,12 @@ export default function HeroSection() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
+              {/* --- sliding animation headline: "Transform Your Business with" --- */}
               <motion.span 
                 className="block relative"
                 initial={{ x: -1000, opacity: 0, y: 0 }}
                 animate={{ x: 0, opacity: 1, y: 0 }}
+                // Springy, smooth transition
                 transition={{ 
                   duration: 2.5, 
                   ease: [0.25, 0.46, 0.45, 0.94],
@@ -91,6 +92,7 @@ export default function HeroSection() {
                   damping: 15,
                   mass: 2
                 }}
+                // this add a subtle bounce effect after entrance
                 whileInView={{
                   y: [0, -5, 0, -3, 0],
                   transition: {
@@ -113,6 +115,7 @@ export default function HeroSection() {
                 />
                 Transform Your Business with
               </motion.span>
+              {/* --- typing animation on "Shelf-ish Goods Solutions" headline --- */}
               <motion.span 
                 className="block bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 bg-clip-text text-transparent"
                 initial={{ opacity: 0 }}
@@ -123,6 +126,7 @@ export default function HeroSection() {
                 }}
               >
                 {displayText}
+                {/* shows blinking cursor while typing */}
                 {isTyping && (
                   <motion.span
                     animate={{ opacity: [1, 0, 1] }}

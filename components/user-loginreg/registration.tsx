@@ -18,6 +18,7 @@ export default function SellerRegistration() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [termsOpen, setTermsOpen] = useState(false);
+  const [consentOpen, setConsentOpen] = useState(false);
 
   // Form state
   const [username, setUsername] = useState("");
@@ -193,7 +194,8 @@ export default function SellerRegistration() {
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 8l2.5 2.5L12 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </Checkbox.Indicator>
             </Checkbox.Root>
-            <label htmlFor="terms" className="text-sm text-gray-700 select-none">I agree to the{' '}
+            <label htmlFor="terms" className="text-sm text-gray-700 select-none">
+              I agree to the{' '}
               <Dialog open={termsOpen} onOpenChange={setTermsOpen}>
                 <DialogTrigger asChild>
                   <button type="button" className="text-blue-600 hover:underline font-medium">Terms and Conditions</button>
@@ -604,8 +606,93 @@ export default function SellerRegistration() {
                       </div>
                     </section>
                   </div>
+                  <div className="flex justify-end mt-8">
+                    <button
+                      type="button"
+                      className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                      onClick={() => setTermsOpen(false)}
+                    >
+                      I Agree
+                    </button>
+                  </div>
                 </DialogContent>
               </Dialog>
+              {' '}as well as the{' '}
+              <Dialog open={consentOpen} onOpenChange={setConsentOpen}>
+                <DialogTrigger asChild>
+                  <button type="button" className="text-blue-600 hover:underline font-medium">Consent Form</button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto bg-gradient-to-br from-gray-50 to-white">
+                  <DialogHeader className="border-b border-gray-200 pb-4 mb-6">
+                    <DialogTitle className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg flex items-center justify-center">
+                        <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                        </svg>
+                      </div>
+                      Consent Form
+                    </DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-5 text-gray-700 text-base px-2 pb-2">
+                    <p>By proceeding with registration, I confirm that:</p>
+                    <ol className="space-y-5">
+                      <li className="flex gap-4 items-start">
+                        <span className="flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white flex items-center justify-center text-lg font-bold shadow-md mt-1">1</span>
+                        <span>
+                          I am voluntarily submitting my personal and sensitive information, which may include:
+                          <ul className="list-disc list-inside ml-6 mt-1">
+                            <li>Full name, address, contact details</li>
+                            <li>Date of birth, age, height, and weight</li>
+                            <li>Government-issued IDs (driver's license, SSS, PhilHealth, etc.)</li>
+                            <li>Employment history, training records, and certifications</li>
+                            <li>Medical results including drug and alcohol screening</li>
+                            <li>Any other information relevant to my employment profile</li>
+                          </ul>
+                        </span>
+                      </li>
+                      <li className="flex gap-4 items-start">
+                        <span className="flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white flex items-center justify-center text-lg font-bold shadow-md mt-1">2</span>
+                        <span>
+                          I understand that these data will be used by <span className="font-semibold">THUMBWORX</span> for manpower profiling, employment processing, deployment, and coordination with clients and project partners.
+                        </span>
+                      </li>
+                      <li className="flex gap-4 items-start">
+                        <span className="flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white flex items-center justify-center text-lg font-bold shadow-md mt-1">3</span>
+                        <span>
+                          I give my full consent for <span className="font-semibold">THUMBWORX</span> to share my relevant information with its authorized clients, contractors, and affiliated companies for legitimate business purposes related to job matching and project assignments.
+                        </span>
+                      </li>
+                      <li className="flex gap-4 items-start">
+                        <span className="flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white flex items-center justify-center text-lg font-bold shadow-md mt-1">4</span>
+                        <span>
+                          I am aware that my data will be stored securely and handled with strict confidentiality, in accordance with the Data Privacy Act of 2012.
+                        </span>
+                      </li>
+                      <li className="flex gap-4 items-start">
+                        <span className="flex-shrink-0 w-9 h-9 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 text-white flex items-center justify-center text-lg font-bold shadow-md mt-1">5</span>
+                        <span>
+                          I understand that I have the right to:
+                          <ul className="list-disc list-inside ml-6 mt-1">
+                            <li>Access or review my personal data</li>
+                            <li>Request corrections for any inaccurate or outdated information</li>
+                            <li>Withdraw my consent at any time by submitting a written request to the company</li>
+                          </ul>
+                        </span>
+                      </li>
+                    </ol>
+                    <div className="flex justify-end mt-8">
+                      <button
+                        type="button"
+                        className="px-6 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white font-semibold rounded-lg shadow hover:from-cyan-600 hover:to-blue-600 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        onClick={() => setConsentOpen(false)}
+                      >
+                        I Agree
+                      </button>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
+              .
             </label>
           </div>
           <Button
